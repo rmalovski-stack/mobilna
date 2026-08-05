@@ -1,639 +1,655 @@
 <!DOCTYPE html>
 <html lang="mk">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-<meta name="theme-color" content="#1e40af">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="Настава">
-<title>Платформа за настава</title>
-<link rel="icon" href="data:image/png;base64,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">
-<link rel="apple-touch-icon" href="data:image/png;base64,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">
-<style>
-:root{
-  --primary:#1e40af;--primary-light:#3b82f6;--bg:#f4f7fc;--card:#fff;--text:#0f172a;
-  --muted:#64748b;--danger:#ef4444;--success:#22c55e;--warning:#f59e0b;
-  --safe-top:env(safe-area-inset-top,0px);--safe-bottom:env(safe-area-inset-bottom,0px);
-  --header-h:78px;--nav-h:64px;
-}
-*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-html,body{height:100%;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden}
-body{padding-top:calc(var(--header-h) + var(--safe-top));padding-bottom:calc(var(--nav-h) + var(--safe-bottom))}
-
-/* FIXED HEADER – never disappears */
-#appHeader{
-  position:fixed;top:0;left:0;right:0;z-index:900;
-  background:linear-gradient(135deg,#1e40af,#3b82f6);color:#fff;
-  padding:calc(8px + var(--safe-top)) 12px 10px;
-  min-height:calc(var(--header-h) + var(--safe-top));
-  box-shadow:0 4px 12px rgba(30,64,175,.3);
-  display:none;
-}
-#appHeader.visible{display:block}
-#appHeader .row{display:flex;align-items:center;gap:10px}
-#appHeader .back-btn{
-  background:rgba(255,255,255,.22);border:none;color:#fff;
-  width:42px;height:42px;border-radius:12px;font-size:24px;cursor:pointer;
-  flex-shrink:0;display:flex;align-items:center;justify-content:center;line-height:1;
-}
-#appHeader .back-btn:active{background:rgba(255,255,255,.4)}
-#appHeader .back-btn.invisible{opacity:0;pointer-events:none}
-#appHeader .head-text{flex:1;min-width:0}
-#appHeader .skola{font-size:12px;opacity:.9}
-#appHeader .profesor{font-size:11px;opacity:.8}
-#appHeader .naslov{font-size:16px;font-weight:800;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-#appHeader .podnaslov{font-size:12px;opacity:.85;margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-
-/* FIXED BOTTOM NAV – never disappears */
-#bottomNav{
-  position:fixed;bottom:0;left:0;right:0;z-index:900;
-  height:calc(var(--nav-h) + var(--safe-bottom));
-  padding-bottom:var(--safe-bottom);
-  background:#fff;border-top:1px solid #e2e8f0;
-  display:none;grid-template-columns:repeat(6,1fr);align-items:center;
-  box-shadow:0 -4px 16px rgba(0,0,0,.08);
-}
-#bottomNav.visible{display:grid}
-.nav-item{
-  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;
-  padding:6px 1px;border:none;background:transparent;color:var(--muted);
-  font-size:9px;font-weight:600;cursor:pointer;width:100%;min-width:0;
-}
-.nav-item .icon{font-size:17px;line-height:1}
-.nav-item.active{color:var(--primary)}
-.nav-item.close-btn{color:#dc2626}
-.nav-item.save-btn{color:#16a34a}
-
-/* INTRO */
-.intro-overlay{position:fixed;inset:0;z-index:9999;background:#0f172a}
-.intro-screen{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .7s ease,transform .7s ease;transform:scale(1.05)}
-.intro-screen.active{opacity:1;transform:scale(1)}
-.intro-screen.exit{opacity:0;transform:scale(.96)}
-.screen-sigma{background:linear-gradient(160deg,#0f172a,#1e3a8a 50%,#1e40af)}
-.sigma-wrap{position:relative;width:180px;height:180px;display:flex;align-items:center;justify-content:center}
-.sigma-ring,.sigma-ring2{position:absolute;border-radius:50%;animation:pulseRing 2s ease-out infinite}
-.sigma-ring{inset:0;border:3px solid rgba(255,255,255,.15)}
-.sigma-ring2{inset:-12px;border:2px solid rgba(59,130,246,.25);animation-delay:.4s}
-@keyframes pulseRing{0%{transform:scale(.85);opacity:1}100%{transform:scale(1.25);opacity:0}}
-.sigma-symbol{font-size:96px;color:#fff;font-weight:300;animation:sigmaIn 1s cubic-bezier(.34,1.56,.64,1) both;text-shadow:0 0 40px rgba(59,130,246,.6)}
-@keyframes sigmaIn{0%{opacity:0;transform:scale(.3) rotate(-20deg)}100%{opacity:1;transform:scale(1)}}
-.sigma-label{margin-top:28px;color:rgba(255,255,255,.7);font-size:14px;letter-spacing:3px;text-transform:uppercase;animation:fadeUp .8s ease .5s both}
-@keyframes fadeUp{0%{opacity:0;transform:translateY(16px)}100%{opacity:1;transform:translateY(0)}}
-.screen-header{background:linear-gradient(160deg,#1e40af,#3b82f6);color:#fff;text-align:center;padding:40px 24px}
-.header-skola{font-size:15px;opacity:.85;animation:fadeUp .6s ease .15s both}
-.header-prof{font-size:14px;opacity:.75;margin:6px 0 18px;animation:fadeUp .6s ease .3s both}
-.header-naslov{font-size:26px;font-weight:800;line-height:1.25;animation:fadeUp .6s ease .45s both}
-.header-line{width:60px;height:3px;background:rgba(255,255,255,.5);margin:20px auto;border-radius:2px;animation:fadeUp .6s ease .6s both}
-
-.view{display:none}
-.view.active{display:block}
-.page-pad{padding:14px;max-width:640px;margin:0 auto}
-.section-title{font-size:13px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin:0 0 10px}
-.section-box{background:var(--card);border:1px solid #e2e8f0;border-radius:14px;padding:14px;margin-bottom:16px}
-.cat-grid{display:flex;flex-direction:column;gap:10px}
-.cat-card{background:var(--card);border:1px solid #e2e8f0;border-radius:16px;padding:16px 18px;display:flex;align-items:center;gap:14px;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.04)}
-.cat-card:active{transform:scale(.98)}
-.cat-icon{width:46px;height:46px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}
-.cat-icon.math{background:#dbeafe}.cat-icon.class{background:#fef3c7}.cat-icon.all{background:#e0e7ff}.cat-icon.sub{background:#eef2ff}
-.cat-info{flex:1}.cat-name{font-weight:700;font-size:15px}.cat-desc{font-size:12px;color:var(--muted);margin-top:2px}
-.cat-arrow{color:var(--muted);font-size:20px}
-.toolbar{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.toolbar .full{grid-column:1/-1}
-.btn{padding:12px 14px;border:none;border-radius:10px;font-weight:600;font-size:14px;cursor:pointer;color:#fff;text-align:center}
-.btn-primary{background:var(--primary-light)}.btn-warning{background:var(--warning)}.btn-danger{background:var(--danger)}.btn-success{background:var(--success)}
-.file-input-hidden{display:none}
-.search-box{margin-bottom:12px}
-.search-box input{width:100%;padding:12px 14px;border:1px solid #e2e8f0;border-radius:12px;font-size:15px;background:#fff}
-.search-box input:focus{outline:none;border-color:var(--primary-light);box-shadow:0 0 0 3px rgba(59,130,246,.2)}
-.title-list{display:flex;flex-direction:column;gap:8px}
-.title-item{background:var(--card);border:1px solid #e2e8f0;border-radius:12px;padding:14px 16px;display:flex;align-items:center;gap:12px;cursor:pointer}
-.title-item:active{background:#f1f5f9}
-.title-item .t-name{flex:1;font-weight:600;font-size:15px;word-break:break-word}
-.title-item .t-meta{font-size:11px;color:#64748b;font-weight:500;margin-top:2px}
-.title-item .t-badge{font-size:11px;background:#e2e8f0;padding:2px 8px;border-radius:8px;color:var(--muted);flex-shrink:0}
-.title-item .t-del{background:none;border:none;font-size:16px;cursor:pointer;padding:4px 6px;opacity:.6}
-.prazno{text-align:center;padding:36px 16px;color:#94a3b8}
-.prazno span{font-size:36px;display:block;margin-bottom:8px}
-
-/* Preview between fixed header and nav */
-#previewView{
-  display:none;position:fixed;
-  top:calc(var(--header-h) + var(--safe-top));
-  left:0;right:0;
-  bottom:calc(var(--nav-h) + var(--safe-bottom));
-  z-index:800;background:#fff;
-}
-#previewView.active{display:block}
-#previewView iframe{width:100%;height:100%;border:none}
-
-.toast{position:fixed;bottom:calc(var(--nav-h) + var(--safe-bottom) + 12px);left:50%;transform:translateX(-50%) translateY(20px);background:#1e293b;color:#fff;padding:12px 20px;border-radius:12px;font-size:14px;box-shadow:0 8px 24px rgba(0,0,0,.2);opacity:0;pointer-events:none;transition:.25s;z-index:1000;max-width:90%;text-align:center}
-.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
-.install-banner{display:none;background:#dbeafe;color:#1e40af;padding:8px 12px;font-size:12px;text-align:center;gap:8px;align-items:center;justify-content:center;flex-wrap:wrap;position:relative;z-index:50}
-.install-banner.show{display:flex}
-.install-banner button{background:var(--primary);color:#fff;border:none;padding:5px 12px;border-radius:8px;font-weight:600;font-size:12px}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>СОУ „28 Ноември“ – Платформа за настава</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%231b3a60'/%3E%3Ctext x='50' y='72' font-size='70' text-anchor='middle' fill='white' font-family='serif'%3E%CE%A3%3C/text%3E%3C/svg%3E" type="image/svg+xml">
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',sans-serif}
+        body{background:#f4f7fc;padding:0;color:#1e293b;height:100vh;overflow:hidden}
+        .app-container{display:flex;flex-direction:column;height:100vh;background:#f4f7fc}
+        .header{background:linear-gradient(135deg,#0d1b3e,#1a237e 40%,#0d47a1);padding:12px 16px 10px;flex-shrink:0;box-shadow:0 4px 20px rgba(26,35,126,0.3);text-align:center;z-index:5}
+        .header .skola{font-size:14px;font-weight:700;color:rgba(255,255,255,0.9)}
+        .header .profesor{font-size:12px;font-weight:400;color:rgba(255,255,255,0.75)}
+        .header .naslov{font-size:19px;font-weight:800;color:#fff;margin-top:2px;text-shadow:0 2px 8px rgba(0,0,0,0.15)}
+        .header .naslov span{background:rgba(255,255,255,0.12);padding:2px 12px;border-radius:30px;font-size:11px;font-weight:500;margin-left:6px;display:inline-block}
+        .main-content{flex:1;overflow-y:auto;padding:10px 14px 80px;background:#f4f7fc}
+        
+        /* ===== ХОРИЗОНТАЛНО МЕНИ (ПОДКАТЕГОРИИ) ===== */
+        .submenu-wrapper{display:none;gap:8px;flex-wrap:wrap;padding:4px 0 10px;margin:0 0 8px}
+        .submenu-wrapper.open{display:flex}
+        .submenu-item{flex:1 1 calc(50% - 8px);min-width:calc(50% - 8px);max-width:calc(50% - 8px);background:#dcfce7;padding:10px 8px;border-radius:14px;font-size:13px;font-weight:600;color:#166534;cursor:pointer;transition:all .25s;border:3px solid #86efac;text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1.3;box-shadow:0 2px 6px rgba(0,0,0,0.04);min-height:56px}
+        .submenu-item .sub-line1{display:block;font-size:13px}
+        .submenu-item .sub-line2{display:block;font-size:13px;font-weight:500}
+        .submenu-item.active-sub{background:#1a237e;color:#fff;border-color:#1a237e;box-shadow:0 4px 16px rgba(26,35,126,0.35);transform:scale(1.02)}
+        .submenu-item.active-sub .sub-line1,.submenu-item.active-sub .sub-line2{color:#fff}
+        .submenu-item:hover{background:#bbf7d0;border-color:#4ade80;transform:translateY(-2px)}
+        .submenu-item.active-sub:hover{background:#0d1b5e;border-color:#0d1b5e;transform:scale(1.02) translateY(-2px)}
+        @media(max-width:480px){.submenu-item{flex:1 1 calc(50% - 6px);min-width:calc(50% - 6px);max-width:calc(50% - 6px);padding:8px 4px;min-height:48px;border-radius:12px}.submenu-item .sub-line1,.submenu-item .sub-line2{font-size:11px}}
+        @media(min-width:600px){.submenu-item{flex:1 1 calc(50% - 8px);min-width:calc(50% - 8px);max-width:calc(50% - 8px);padding:12px 10px;min-height:64px;border-radius:16px}.submenu-item .sub-line1,.submenu-item .sub-line2{font-size:15px}}
+        
+        .toolbar{display:flex;flex-wrap:wrap;gap:8px;justify-content:space-between;align-items:center;background:#f8fafc;padding:8px 12px;border-radius:12px;margin-bottom:14px}
+        .btn{padding:6px 16px;border:none;border-radius:8px;font-weight:600;font-size:13px;cursor:pointer;transition:.2s;background:#e2e8f0;color:#1e293b;white-space:nowrap}
+        .btn-primary{background:#3b82f6;color:#fff}
+        .btn-primary:hover{background:#2563eb}
+        .btn-success{background:#22c55e;color:#fff}
+        .btn-success:hover{background:#16a34a}
+        .btn-info{background:#8b5cf6;color:#fff}
+        .btn-info:hover{background:#7c3aed}
+        .btn-danger{background:#ef4444;color:#fff}
+        .btn-danger:hover{background:#dc2626}
+        .btn-warning{background:#f59e0b;color:#fff}
+        .btn-warning:hover{background:#d97706}
+        .file-input-hidden{display:none}
+        .file-input-hidden2{display:none}
+        
+        .lista{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;margin:10px 0 14px}
+        .karticka{background:#fff;padding:12px 14px;border-radius:12px;border:1px solid #e2e8f0;transition:.2s;display:flex;flex-direction:column;gap:4px}
+        .karticka:hover{transform:translateY(-2px);box-shadow:0 4px 12px rgba(0,0,0,0.06);border-color:#3b82f6}
+        .karticka .naslov-html{font-weight:700;font-size:15px;color:#0f172a;word-break:break-word;display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+        .karticka .naslov-html .tip-badge-sm{font-size:10px;background:#e2e8f0;padding:1px 8px;border-radius:20px;font-weight:400}
+        .karticka .datum-html{font-size:12px;color:#64748b}
+        .karticka .kategorija-badge{font-size:10px;background:#dbeafe;padding:1px 10px;border-radius:20px;color:#1e40af;display:inline-block;width:fit-content;font-weight:500}
+        .karticka .akcii{display:flex;gap:4px;flex-wrap:wrap;margin-top:4px}
+        .karticka .akcii .btn{padding:4px 10px;font-size:12px;flex:1;text-align:center}
+        .prazno{text-align:center;padding:30px 16px;color:#94a3b8;grid-column:1/-1}
+        .prazno span{font-size:36px;display:block;margin-bottom:6px}
+        
+        .bottom-nav{position:fixed;bottom:0;left:0;right:0;display:flex;background:#fff;border-top:2px solid #e2e8f0;padding:6px 4px env(safe-area-inset-bottom)4px;box-shadow:0 -4px 20px rgba(0,0,0,0.08);z-index:1000;height:60px;min-height:60px}
+        .tab-btn{flex:1;padding:8px 4px 6px;display:flex;flex-direction:column;align-items:center;justify-content:center;background:transparent;border:none;font-size:11px;font-weight:600;color:#94a3b8;cursor:pointer;transition:.25s;border-radius:12px;margin:0 4px;gap:2px;text-align:center;line-height:1.2;height:100%}
+        .tab-btn .tab-icon{font-size:22px}
+        .tab-btn .tab-label{font-size:11px;font-weight:600;white-space:nowrap}
+        .tab-btn.active{color:#1b3a60;background:#eff6ff;box-shadow:0 2px 8px rgba(59,130,246,0.12)}
+        .tab-btn:active{background:#dbeafe;transform:scale(.97)}
+        
+        .toast{position:fixed;bottom:72px;left:50%;transform:translateX(-50%);background:#1e293b;color:#fff;padding:10px 20px;border-radius:10px;font-size:13px;box-shadow:0 4px 16px rgba(0,0,0,0.2);display:none;z-index:2000;max-width:90%;text-align:center}
+        .toast.show{display:block;animation:fadeInUp .3s ease}
+        @keyframes fadeInUp{from{opacity:0;transform:translateX(-50%) translateY(20px)}to{opacity:1;transform:translateX(-50%) translateY(0)}}
+        @media(max-width:480px){.bottom-nav{height:52px;min-height:52px}.tab-btn .tab-icon{font-size:18px}.tab-btn .tab-label{font-size:10px}.header .naslov{font-size:17px}.lista{grid-template-columns:1fr}.main-content{padding:8px 10px 65px}.tab-btn{padding:4px 2px}.toast{bottom:62px}}
+        @media(min-width:600px){.bottom-nav{height:68px;min-height:68px}.tab-btn .tab-icon{font-size:26px}.tab-btn .tab-label{font-size:13px}.tab-btn{padding:10px 8px}.main-content{padding:12px 20px 85px}.toast{bottom:80px}}
+    </style>
 </head>
 <body>
-
-<!-- INTRO -->
-<div class="intro-overlay" id="introOverlay">
-  <div class="intro-screen screen-sigma active" id="scrSigma">
-    <div class="sigma-wrap"><div class="sigma-ring"></div><div class="sigma-ring2"></div><div class="sigma-symbol">∑</div></div>
-    <div class="sigma-label">Математика</div>
-  </div>
-  <div class="intro-screen screen-header" id="scrHeader">
-    <div class="header-skola">СОУ „28 Ноември“ – Дебар</div>
-    <div class="header-prof">Проф. Решат Маловски</div>
-    <div class="header-naslov">Платформа за настава<br>по математика</div>
-    <div class="header-line"></div>
-  </div>
-</div>
-
-<!-- FIXED HEADER -->
-<header id="appHeader">
-  <div class="row">
-    <button type="button" class="back-btn" id="backBtn" onclick="goBack()">‹</button>
-    <div class="head-text">
-      <div class="skola">СОУ „28 Ноември“ – Дебар</div>
-      <div class="profesor">Проф. Решат Маловски</div>
-      <div class="naslov" id="hdrTitle">Платформа за настава</div>
-      <div class="podnaslov" id="hdrSub">Избери категорија</div>
+<div class="app-container">
+    <div class="header">
+        <div class="skola">🏫 СОУ "28 Ноември" – Дебар</div>
+        <div class="profesor">👨‍🏫 Проф. Решат Маловски</div>
+        <div class="naslov">📐 Платформа за настава <span>математика</span></div>
     </div>
-  </div>
-</header>
+    <div class="main-content" id="mainContent">
+        <!-- ===== ХОРИЗОНТАЛНО МЕНИ (ПОДКАТЕГОРИИ) ===== -->
+        <div id="submenuContainer" class="submenu-wrapper open">
+            <div class="submenu-item active-sub" data-sub="podgotovka" onclick="filterSubcategory('podgotovka',this)">
+                <span class="sub-line1">📝 Подготовка за</span><span class="sub-line2">настава</span>
+            </div>
+            <div class="submenu-item" data-sub="nastavni" onclick="filterSubcategory('nastavni',this)">
+                <span class="sub-line1">📚 Наставни</span><span class="sub-line2">активности</span>
+            </div>
+            <div class="submenu-item" data-sub="vonnastavni" onclick="filterSubcategory('vonnastavni',this)">
+                <span class="sub-line1">🏫 Воннаставни</span><span class="sub-line2">активности</span>
+            </div>
+            <div class="submenu-item" data-sub="drugo" onclick="filterSubcategory('drugo',this)">
+                <span class="sub-line1">📌 Друго</span><span class="sub-line2">&nbsp;</span>
+            </div>
+        </div>
 
-<!-- VIEWS -->
-<div class="view active" id="viewCats">
-  <div class="page-pad">
-    <div class="search-box"><input type="search" id="globalSearch" placeholder="🔍 Пребарај по име во сите категории…" autocomplete="off"></div>
-    <div class="cat-grid">
-      <div class="cat-card" onclick="openCategory('matematika')"><div class="cat-icon math">📐</div><div class="cat-info"><div class="cat-name">Математика</div><div class="cat-desc">Поткатегории</div></div><div class="cat-arrow">›</div></div>
-      <div class="cat-card" onclick="openCategory('klasen-cas')"><div class="cat-icon class">🧑‍🏫</div><div class="cat-info"><div class="cat-name">Класен час</div><div class="cat-desc">Материјали</div></div><div class="cat-arrow">›</div></div>
-      <div class="cat-card" onclick="openCategory('site')"><div class="cat-icon all">📂</div><div class="cat-info"><div class="cat-name">Сите датотеки</div><div class="cat-desc">Преглед на сè</div></div><div class="cat-arrow">›</div></div>
+        <!-- ===== TOOLBAR ===== -->
+        <div class="toolbar">
+            <div style="font-weight:600;font-size:14px;">📁 Датотеки</div>
+            <div style="display:flex;gap:6px;flex-wrap:wrap;">
+                <button class="btn btn-primary" onclick="document.getElementById('htmlInput').click()">📄 HTML</button>
+                <input type="file" id="htmlInput" accept=".html,.htm" multiple class="file-input-hidden">
+                <button class="btn btn-warning" onclick="document.getElementById('docInput').click()">📎 Документ</button>
+                <input type="file" id="docInput" accept=".pdf,.doc,.docx,.txt,.md" multiple class="file-input-hidden">
+                <button class="btn btn-success" onclick="izveziJSON()">📤 Извези JSON</button>
+                <button class="btn btn-info" onclick="document.getElementById('jsonInput').click()">📂 Увези JSON</button>
+                <input type="file" id="jsonInput" accept=".json" class="file-input-hidden2" onchange="uvoziJSON(event)">
+                <button class="btn btn-danger" onclick="izbrisiSite()">🗑</button>
+            </div>
+        </div>
+
+        <!-- ===== ЛИСТА ===== -->
+        <div id="listaContainer" class="lista"></div>
     </div>
-  </div>
-</div>
 
-<div class="view" id="viewSubs">
-  <div class="page-pad">
-    <div class="cat-grid">
-      <div class="cat-card" onclick="openSub('podgotovka')"><div class="cat-icon sub">📝</div><div class="cat-info"><div class="cat-name">Подготовка за настава</div></div><div class="cat-arrow">›</div></div>
-      <div class="cat-card" onclick="openSub('nastavni')"><div class="cat-icon sub">📚</div><div class="cat-info"><div class="cat-name">Наставни активности</div></div><div class="cat-arrow">›</div></div>
-      <div class="cat-card" onclick="openSub('vonnastavni')"><div class="cat-icon sub">🏫</div><div class="cat-info"><div class="cat-name">Воннаставни активности</div></div><div class="cat-arrow">›</div></div>
-      <div class="cat-card" onclick="openSub('drugo')"><div class="cat-icon sub">📌</div><div class="cat-info"><div class="cat-name">Друго</div></div><div class="cat-arrow">›</div></div>
+    <!-- ===== ДОЛНА НАВИГАЦИЈА ===== -->
+    <div class="bottom-nav" id="bottomNav">
+        <button class="tab-btn active" data-category="matematika" onclick="switchTab('matematika',this)">
+            <span class="tab-icon">📐</span><span class="tab-label">Математика</span>
+        </button>
+        <button class="tab-btn" data-category="klasen-cas" onclick="switchTab('klasen-cas',this)">
+            <span class="tab-icon">🧑‍🏫</span><span class="tab-label">Класен час</span>
+        </button>
     </div>
-  </div>
-</div>
-
-<div class="view" id="viewList">
-  <div class="page-pad">
-    <div class="section-title">Управување</div>
-    <div class="section-box">
-      <div class="toolbar">
-        <button type="button" class="btn btn-primary" onclick="document.getElementById('htmlInput').click()">📄 Увези HTML</button>
-        <button type="button" class="btn btn-warning" onclick="document.getElementById('docInput').click()">📎 Увези документ</button>
-        <button type="button" class="btn btn-success full" onclick="document.getElementById('jsonInput').click()">📥 Увези JSON база</button>
-        <button type="button" class="btn btn-danger full" onclick="izbrisiSite()">🗑 Избриши сѐ во оваа листа</button>
-      </div>
-      <input type="file" id="htmlInput" accept=".html,.htm" multiple class="file-input-hidden" onchange="uvoziHTML(event)">
-      <input type="file" id="docInput" accept=".pdf,.doc,.docx,.txt,.md" multiple class="file-input-hidden" onchange="uvoziDokument(event)">
-      <input type="file" id="jsonInput" accept=".json" class="file-input-hidden" onchange="uvoziJSON(event)">
-    </div>
-    <div class="section-title">Наслови</div>
-    <div class="search-box"><input type="search" id="searchInput" placeholder="🔍 Пребарај по име во сите категории…" autocomplete="off"></div>
-    <div class="title-list" id="titleList"></div>
-  </div>
-</div>
-
-<div id="previewView"><iframe id="previewIframe" src="about:blank" title="Преглед"></iframe></div>
-
-<!-- FIXED BOTTOM NAV -->
-<nav id="bottomNav">
-  <button type="button" class="nav-item" data-nav="home" onclick="goMainMenu()"><span class="icon">🏠</span><span>Главно</span></button>
-  <button type="button" class="nav-item" data-nav="math" onclick="openCategory('matematika')"><span class="icon">📐</span><span>Матем.</span></button>
-  <button type="button" class="nav-item" data-nav="class" onclick="openCategory('klasen-cas')"><span class="icon">🧑‍🏫</span><span>Класен</span></button>
-  <button type="button" class="nav-item" data-nav="all" onclick="openCategory('site')"><span class="icon">📂</span><span>Сите</span></button>
-  <button type="button" class="nav-item save-btn" data-nav="save" onclick="sacuvajBaza()"><span class="icon">💾</span><span>Зачувај</span></button>
-  <button type="button" class="nav-item close-btn" data-nav="close" onclick="closeApp()"><span class="icon">✕</span><span>Затвори</span></button>
-</nav>
-
-<div class="install-banner" id="installBanner">
-  <span>📱 Инсталирај</span>
-  <button type="button" onclick="installPWA()">Инсталирај</button>
-  <button type="button" onclick="this.parentElement.classList.remove('show')" style="background:#94a3b8">Подоцна</button>
 </div>
 <div class="toast" id="toast"></div>
 
 <script>
-var ICON_192="data:image/png;base64,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";
-var ICON_512="data:image/png;base64,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";
-var SW_CODE="self.addEventListener('install',e=>self.skipWaiting());self.addEventListener('activate',e=>self.clients.claim());";
-var STORAGE_KEY="edu_70_mesta";
-var SNAPSHOT_KEY="edu_70_snapshot";
-var KONFIG={matematika:{podgotovka:10,nastavni:30,vonnastavni:10,drugo:10},"klasen-cas":10};
-var SUB_LABELS={podgotovka:"Подготовка за настава",nastavni:"Наставни активности",vonnastavni:"Воннаставни активности",drugo:"Друго"};
+// ============================================================
+// 1. КОНФИГУРАЦИЈА
+// ============================================================
+var STORAGE_KEY = 'edu_70_mesta';
+var activeCategory = 'matematika';
+var activeSub = 'podgotovka';
 
-var activeCategory="site", activeSub=null, searchQuery="", currentView="viewCats", previewOpen=false;
-
-function startIntro(){
-  setTimeout(function(){
-    document.getElementById("scrSigma").classList.remove("active");
-    document.getElementById("scrSigma").classList.add("exit");
-    document.getElementById("scrHeader").classList.add("active");
-    setTimeout(function(){
-      var o=document.getElementById("introOverlay");
-      o.style.transition="opacity .5s ease"; o.style.opacity="0";
-      setTimeout(function(){
-        o.style.display="none";
-        document.getElementById("appHeader").classList.add("visible");
-        document.getElementById("bottomNav").classList.add("visible");
-        goMainMenu();
-      },500);
-    },2500);
-  },2500);
+// ============================================================
+// 2. ПОМОШНИ
+// ============================================================
+function getData() {
+    try {
+        var raw = localStorage.getItem(STORAGE_KEY);
+        if (raw) return JSON.parse(raw);
+    } catch(e) {}
+    try {
+        var raw2 = sessionStorage.getItem(STORAGE_KEY);
+        if (raw2) return JSON.parse(raw2);
+    } catch(e) {}
+    return [];
 }
 
-function setHeader(title, sub, showBack){
-  document.getElementById("hdrTitle").textContent=title||"Платформа за настава";
-  document.getElementById("hdrSub").textContent=sub||"";
-  var btn=document.getElementById("backBtn");
-  if(showBack) btn.classList.remove("invisible");
-  else btn.classList.add("invisible");
+function setData(data) {
+    try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+    } catch(e) {
+        try {
+            sessionStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+        } catch(e2) {}
+    }
 }
 
-function setNavActive(which){
-  document.querySelectorAll("#bottomNav .nav-item").forEach(function(n){ n.classList.remove("active"); });
-  var el=document.querySelector('#bottomNav .nav-item[data-nav="'+which+'"]');
-  if(el) el.classList.add("active");
+function generateId() {
+    return Date.now().toString(36) + Math.random().toString(36).substr(2, 5);
 }
 
-function goView(id){
-  document.querySelectorAll(".view").forEach(function(v){ v.classList.remove("active"); });
-  document.getElementById(id).classList.add("active");
-  currentView=id;
-  closePreviewSilent();
-  window.scrollTo(0,0);
+function showToast(msg) {
+    var t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    clearTimeout(t._timer);
+    t._timer = setTimeout(function() { t.classList.remove('show'); }, 2500);
 }
 
-function goBack(){
-  if(previewOpen){ closePreview(); return; }
-  if(currentView==="viewList"){
-    if(searchQuery){ goMainMenu(); return; }
-    if(activeCategory==="matematika"){ openCategory("matematika"); return; }
-    goMainMenu(); return;
-  }
-  if(currentView==="viewSubs"){ goMainMenu(); return; }
-  goMainMenu();
+function formatDate(iso) {
+    if (!iso) return '';
+    var d = new Date(iso);
+    return d.toLocaleDateString('mk-MK', { day:'2-digit', month:'2-digit', year:'numeric', hour:'2-digit', minute:'2-digit' });
 }
 
-function goMainMenu(){
-  activeCategory="site"; activeSub=null; searchQuery="";
-  var gs=document.getElementById("globalSearch");
-  var si=document.getElementById("searchInput");
-  if(gs) gs.value="";
-  if(si) si.value="";
-  setHeader("Платформа за настава","Избери категорија", false);
-  setNavActive("home");
-  goView("viewCats");
+function escHtml(str) {
+    if (!str) return '';
+    return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 }
 
-function openCategory(cat){
-  activeCategory=cat; activeSub=null; searchQuery="";
-  var si=document.getElementById("searchInput"); if(si) si.value="";
-  if(cat==="matematika"){
-    setHeader("Математика","Избери поткатегорија", true);
-    setNavActive("math");
-    goView("viewSubs");
-  } else if(cat==="klasen-cas"){
-    setNavActive("class");
-    openList();
-  } else {
-    setNavActive("all");
-    openList();
-  }
-}
-
-function openSub(sub){
-  activeCategory="matematika"; activeSub=sub; searchQuery="";
-  var si=document.getElementById("searchInput"); if(si) si.value="";
-  setNavActive("math");
-  openList();
-}
-
-function openList(){
-  var main, sub;
-  if(searchQuery){
-    main="Пребарување";
-    sub='Резултати за „'+searchQuery+'“';
-  } else if(activeCategory==="matematika"){
-    main="Математика";
-    sub=activeSub?(SUB_LABELS[activeSub]||activeSub):"Сите";
-  } else if(activeCategory==="klasen-cas"){
-    main="Класен час"; sub="Документи";
-  } else {
-    main="Сите датотеки"; sub="Документи";
-  }
-  setHeader(main, sub, true);
-  renderTitleList();
-  goView("viewList");
-}
-
-function getData(){
-  try{ var r=localStorage.getItem(STORAGE_KEY); return r?JSON.parse(r):[]; }
-  catch(e){ return []; }
-}
-function setData(d){ localStorage.setItem(STORAGE_KEY, JSON.stringify(d)); }
-function generateId(){ return Date.now().toString(36)+Math.random().toString(36).substr(2,5); }
-function showToast(msg){
-  var t=document.getElementById("toast");
-  t.textContent=msg; t.classList.add("show");
-  clearTimeout(t._timer);
-  t._timer=setTimeout(function(){ t.classList.remove("show"); }, 3000);
-}
-function escHtml(s){
-  if(!s) return "";
-  return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
-}
-function getMax(){
-  if(activeCategory==="matematika"&&activeSub) return KONFIG.matematika[activeSub]||0;
-  if(activeCategory==="klasen-cas") return KONFIG["klasen-cas"];
-  return 0;
-}
-
-/* STRICT name search across all categories when query present */
-function filteredData(){
-  var data=getData();
-  var q=(searchQuery||"").trim().toLowerCase();
-  var f;
-  if(q.length>0){
-    f=data.filter(function(i){
-      var name=(i.naslov||"").toLowerCase();
-      return name.indexOf(q) !== -1;
-    });
-  } else if(activeCategory==="matematika"){
-    f=data.filter(function(i){
-      return i.kategorija==="matematika" && (!activeSub || i.subkategorija===activeSub);
-    });
-  } else if(activeCategory==="klasen-cas"){
-    f=data.filter(function(i){ return i.kategorija==="klasen-cas"; });
-  } else {
-    f=data.slice();
-  }
-  return f.sort(function(a,b){ return new Date(b.datum)-new Date(a.datum); });
-}
-
-function doSearch(raw){
-  var q=(raw||"").trim();
-  searchQuery=q.toLowerCase();
-  // sync inputs
-  var gs=document.getElementById("globalSearch");
-  var si=document.getElementById("searchInput");
-  if(gs && document.activeElement!==gs) gs.value=q;
-  if(si && document.activeElement!==si) si.value=q;
-
-  if(searchQuery.length>0){
-    openList();
-  } else if(currentView==="viewList"){
-    openList();
-  }
-  renderTitleList();
-}
-
-function renderTitleList(){
-  var list=document.getElementById("titleList");
-  if(!list) return;
-  var items=filteredData();
-  if(!items.length){
-    list.innerHTML='<div class="prazno"><span>📭</span>'+(searchQuery?'Нема резултати за „'+escHtml(searchQuery)+'“.':'Нема документи.<br>Увези HTML, документ или JSON.')+'</div>';
-    return;
-  }
-  var out="";
-  for(var i=0;i<items.length;i++){
-    var item=items[i];
-    var tip=item.htmlContent?"HTML":"Док";
-    var catLabel="";
-    if(item.kategorija==="matematika")
-      catLabel="Математика"+(item.subkategorija?" · "+(SUB_LABELS[item.subkategorija]||item.subkategorija):"");
-    else if(item.kategorija==="klasen-cas")
-      catLabel="Класен час";
-    out+='<div class="title-item" data-id="'+item.id+'">';
-    out+='<div class="t-name">'+escHtml(item.naslov);
-    if(catLabel) out+='<div class="t-meta">'+escHtml(catLabel)+'</div>';
-    out+='</div><span class="t-badge">'+tip+'</span>';
-    out+='<button type="button" class="t-del" data-del="'+item.id+'">🗑</button></div>';
-  }
-  list.innerHTML=out;
-}
-
-document.addEventListener("click", function(e){
-  var del=e.target.closest("[data-del]");
-  if(del){ e.preventDefault(); e.stopPropagation(); izbrisiEdna(del.getAttribute("data-del")); return; }
-  var item=e.target.closest(".title-item[data-id]");
-  if(item) openDoc(item.getAttribute("data-id"));
-});
-
-function openDoc(id){
-  var data=getData(), item=null;
-  for(var i=0;i<data.length;i++) if(data[i].id===id){ item=data[i]; break; }
-  if(!item){ showToast("Нема документ"); return; }
-  setHeader(item.naslov||"Преглед", "Преглед на документ", true);
-  previewOpen=true;
-  var iframe=document.getElementById("previewIframe");
-  if(item.htmlContent){
-    var blob=new Blob([item.htmlContent],{type:"text/html;charset=utf-8"});
-    var url=URL.createObjectURL(blob);
-    iframe.src=url;
-    setTimeout(function(){ try{URL.revokeObjectURL(url)}catch(e){} },120000);
-  } else if(item.fileData){
-    try{
-      var bin=atob(item.fileData), bytes=new Uint8Array(bin.length);
-      for(var i=0;i<bin.length;i++) bytes[i]=bin.charCodeAt(i);
-      var blob=new Blob([bytes],{type:item.fileType||"application/octet-stream"});
-      if((item.fileType||"").indexOf("pdf")>=0) iframe.src=URL.createObjectURL(blob);
-      else {
-        var a=document.createElement("a"); a.href=URL.createObjectURL(blob); a.download=item.fileName||"document"; a.click();
-        showToast("Документот се презема"); previewOpen=false; return;
-      }
-    }catch(e){ showToast("Грешка"); previewOpen=false; return; }
-  } else { showToast("Нема содржина"); previewOpen=false; return; }
-  document.getElementById("previewView").classList.add("active");
-}
-
-function closePreview(){
-  previewOpen=false;
-  document.getElementById("previewView").classList.remove("active");
-  document.getElementById("previewIframe").src="about:blank";
-  // restore header for current list/view
-  if(currentView==="viewList") openList();
-  else if(currentView==="viewSubs") setHeader("Математика","Избери поткатегорија", true);
-  else setHeader("Платформа за настава","Избери категорија", false);
-}
-function closePreviewSilent(){
-  previewOpen=false;
-  var pv=document.getElementById("previewView");
-  if(pv) pv.classList.remove("active");
-  var ifr=document.getElementById("previewIframe");
-  if(ifr) ifr.src="about:blank";
-}
-
-/* SAVE – download JSON for GitHub + local snapshot */
-function sacuvajBaza(){
-  var data=getData();
-  localStorage.setItem(SNAPSHOT_KEY, JSON.stringify(data));
-  var blob=new Blob([JSON.stringify(data, null, 2)], {type:"application/json;charset=utf-8"});
-  var url=URL.createObjectURL(blob);
-  var a=document.createElement("a");
-  a.href=url;
-  a.download="nastava-data.json";
-  document.body.appendChild(a);
-  a.click();
-  document.body.removeChild(a);
-  setTimeout(function(){ URL.revokeObjectURL(url); }, 2000);
-  showToast("💾 Зачувано локално + преземен nastava-data.json (за GitHub)");
-  setNavActive("save");
-  setTimeout(function(){ setNavActive(activeCategory==="matematika"?"math":(activeCategory==="klasen-cas"?"class":(currentView==="viewCats"?"home":"all"))); }, 800);
-}
-
-function uvoziJSON(ev){
-  var file=ev.target.files && ev.target.files[0];
-  if(!file) return;
-  var r=new FileReader();
-  r.onload=function(e){
-    try{
-      var parsed=JSON.parse(e.target.result);
-      if(!Array.isArray(parsed)){ showToast("JSON мора да биде низа []"); return; }
-      setData(parsed);
-      localStorage.setItem(SNAPSHOT_KEY, JSON.stringify(parsed));
-      renderTitleList();
-      showToast("✅ Увезени "+parsed.length+" записи од JSON");
-    }catch(err){ showToast("Невалиден JSON"); }
-  };
-  r.readAsText(file);
-  ev.target.value="";
-}
-
-function closeApp(){
-  showToast("Затворање…");
-  // Try multiple close strategies
-  try{ window.open("", "_self"); }catch(e){}
-  try{ window.close(); }catch(e){}
-  try{
-    if(navigator.app && navigator.app.exitApp) navigator.app.exitApp();
-  }catch(e){}
-  setTimeout(function(){
-    // Fallback: blank page + message (can't force-kill browser tab)
-    document.body.innerHTML='<div style="display:flex;align-items:center;justify-content:center;height:100vh;flex-direction:column;font-family:sans-serif;background:#0f172a;color:#fff;text-align:center;padding:24px"><div style="font-size:48px;margin-bottom:16px">∑</div><h2>Апликацијата е затворена</h2><p style="opacity:.7;margin-top:8px">Можеш да го затвориш јазичето.</p></div>';
-  }, 300);
-}
-
-function uvoziHTML(ev){
-  var files=ev.target.files; if(!files||!files.length) return;
-  var data=getData();
-  var kat=activeCategory==="site"?"matematika":activeCategory;
-  var sub=kat==="matematika"?(activeSub||"podgotovka"):null;
-  var max=getMax();
-  if(max>0 && data.filter(function(i){return i.kategorija===kat&&i.subkategorija===sub}).length>=max){
-    showToast("⚠️ Нема слободни места"); ev.target.value=""; return;
-  }
-  Array.prototype.forEach.call(files, function(file){
-    var r=new FileReader();
-    r.onload=function(e){
-      var content=e.target.result;
-      var m=content.match(/<title>([\s\S]*?)<\/title>/i);
-      var naslov=m?m[1].replace(/<[^>]+>/g,"").trim():file.name.replace(/\.html?$/i,"");
-      data.push({id:generateId(),naslov:naslov,htmlContent:content,datum:new Date().toISOString(),kategorija:kat,subkategorija:sub});
-      setData(data); renderTitleList(); showToast("✅ "+naslov);
+function getLabel(kategorija, subkategorija) {
+    var map = {
+        podgotovka: '📝 Подготовка за настава',
+        nastavni: '📚 Наставни активности',
+        vonnastavni: '🏫 Воннаставни активности',
+        drugo: '📌 Друго',
+        klasen: '📋 Општи активности'
     };
-    r.readAsText(file);
-  });
-  ev.target.value="";
+    return map[subkategorija] || subkategorija;
 }
 
-function uvoziDokument(ev){
-  var files=ev.target.files; if(!files||!files.length) return;
-  var data=getData();
-  var kat=activeCategory==="site"?"matematika":activeCategory;
-  var sub=kat==="matematika"?(activeSub||"podgotovka"):null;
-  var max=getMax();
-  if(max>0 && data.filter(function(i){return i.kategorija===kat&&i.subkategorija===sub}).length>=max){
-    showToast("⚠️ Нема слободни места"); ev.target.value=""; return;
-  }
-  Array.prototype.forEach.call(files, function(file){
-    var r=new FileReader();
-    r.onload=function(e){
-      var content=e.target.result, b64="";
-      try{ b64=btoa(content); }catch(err){ b64=btoa(unescape(encodeURIComponent(content))); }
-      data.push({id:generateId(),naslov:file.name,htmlContent:null,datum:new Date().toISOString(),kategorija:kat,subkategorija:sub,fileType:file.type||"application/octet-stream",fileData:b64,fileName:file.name});
-      setData(data); renderTitleList(); showToast("✅ "+file.name);
+function getTargetCategory() {
+    if (activeCategory === 'matematika') {
+        return { kategorija: 'matematika', subkategorija: activeSub || 'podgotovka' };
+    } else if (activeCategory === 'klasen-cas') {
+        return { kategorija: 'klasen-cas', subkategorija: 'klasen' };
+    } else {
+        return { kategorija: 'matematika', subkategorija: 'podgotovka' };
+    }
+}
+
+// ============================================================
+// 3. ПРЕФРЛУВАЊЕ ПО ТАБОВИ
+// ============================================================
+function switchTab(category, el) {
+    activeCategory = category;
+    var btns = document.querySelectorAll('.tab-btn');
+    for (var i = 0; i < btns.length; i++) {
+        btns[i].classList.remove('active');
+    }
+    if (el) el.classList.add('active');
+
+    var submenu = document.getElementById('submenuContainer');
+    if (category === 'matematika') {
+        submenu.classList.add('open');
+        if (!activeSub) activeSub = 'podgotovka';
+        var items = document.querySelectorAll('.submenu-item');
+        for (var j = 0; j < items.length; j++) {
+            items[j].classList.remove('active-sub');
+            if (items[j].dataset.sub === activeSub) {
+                items[j].classList.add('active-sub');
+            }
+        }
+    } else {
+        submenu.classList.remove('open');
+        activeSub = 'klasen';
+    }
+
+    renderLista();
+    document.getElementById('mainContent').scrollTop = 0;
+}
+
+function filterSubcategory(sub, el) {
+    if (activeCategory !== 'matematika') return;
+    activeSub = sub;
+    var items = document.querySelectorAll('.submenu-item');
+    for (var i = 0; i < items.length; i++) {
+        items[i].classList.remove('active-sub');
+        if (items[i].dataset.sub === sub) {
+            items[i].classList.add('active-sub');
+        }
+    }
+    renderLista();
+}
+
+// ============================================================
+// 4. ПРИКАЖИ ЛИСТА
+// ============================================================
+function renderLista() {
+    var data = getData();
+    var container = document.getElementById('listaContainer');
+
+    var filtered = data;
+    if (activeCategory === 'matematika') {
+        filtered = filtered.filter(function(item) {
+            return item.kategorija === 'matematika' && item.subkategorija === activeSub;
+        });
+    } else if (activeCategory === 'klasen-cas') {
+        filtered = filtered.filter(function(item) {
+            return item.kategorija === 'klasen-cas';
+        });
+    }
+
+    if (filtered.length === 0) {
+        container.innerHTML = '<div class="prazno"><span>📭</span>Нема документи.<br>Кликни <strong>"HTML"</strong> или <strong>"Документ"</strong> за увоз.</div>';
+        return;
+    }
+
+    filtered.sort(function(a, b) {
+        return new Date(b.datum) - new Date(a.datum);
+    });
+
+    var html = '';
+    for (var i = 0; i < filtered.length; i++) {
+        var item = filtered[i];
+        var isHtml = !!item.htmlContent;
+        var tipLabel = isHtml ? 'HTML' : 'Документ';
+        var subLabel = item.subkategorija ? getLabel(item.kategorija, item.subkategorija) : '';
+        html += '<div class="karticka">';
+        html += '<div class="naslov-html">' + escHtml(item.naslov) + ' <span class="tip-badge-sm">' + tipLabel + '</span></div>';
+        html += '<div class="datum-html">📅 ' + formatDate(item.datum) + '</div>';
+        if (subLabel) html += '<div class="kategorija-badge">' + subLabel + '</div>';
+        html += '<div class="akcii">';
+        html += '<button class="btn btn-primary" onclick="previewItem(\'' + item.id + '\')">👁 Преглед</button>';
+        html += '<button class="btn btn-danger" onclick="izbrisiEdna(\'' + item.id + '\')">🗑</button>';
+        html += '</div></div>';
+    }
+    container.innerHTML = html;
+}
+
+// ============================================================
+// 5. УВОЗ HTML (СО КОПЧЕ ЗА ВРАЌАЊЕ)
+// ============================================================
+function uvoziHTML(event) {
+    var files = event.target.files;
+    if (!files || files.length === 0) {
+        showToast('⚠️ Нема избрани датотеки');
+        return;
+    }
+
+    var target = getTargetCategory();
+    var kategorija = target.kategorija;
+    var subkategorija = target.subkategorija;
+    var data = getData();
+    var uvezeni = 0;
+    var vkupno = files.length;
+
+    var backBtn = `
+    <div style="position:fixed;bottom:80px;left:50%;transform:translateX(-50%);z-index:999;text-align:center;width:100%;pointer-events:none;">
+        <button style="pointer-events:auto;background:linear-gradient(135deg,#1a237e,#0d47a1);color:white;border:none;padding:12px 30px;border-radius:50px;font-size:16px;font-weight:700;cursor:pointer;box-shadow:0 4px 20px rgba(26,35,126,0.4);border:2px solid rgba(255,255,255,0.2);transition:all 0.3s ease;" 
+                onclick="if(window.opener){window.close();}else{window.history.back();}">
+            🏠 Врати се на платформата
+        </button>
+    </div>
+    <style>
+        .back-btn-container button:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(26,35,126,0.5);}
+        .back-btn-container button:active{transform:scale(0.96);}
+        body{padding-bottom:80px;}
+        @media(max-width:480px){.back-btn-container button{padding:10px 20px;font-size:14px;}.back-btn-container{bottom:70px;}body{padding-bottom:70px;}}
+    </style>`;
+
+    for (var i = 0; i < vkupno; i++) {
+        (function(file) {
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    var html = e.target.result;
+                    
+                    if (html.indexOf('</body>') !== -1) {
+                        html = html.replace('</body>', backBtn + '</body>');
+                    } else if (html.indexOf('</html>') !== -1) {
+                        html = html.replace('</html>', backBtn + '</html>');
+                    } else {
+                        html = html + backBtn;
+                    }
+
+                    var naslov = file.name.replace(/\.html$/i, '') || file.name;
+                    var titleMatch = html.match(/<title>(.*?)<\/title>/i);
+                    if (titleMatch && titleMatch[1]) {
+                        naslov = titleMatch[1].trim();
+                    }
+
+                    data.push({
+                        id: generateId(),
+                        naslov: naslov,
+                        htmlContent: html,
+                        datum: new Date().toISOString(),
+                        kategorija: kategorija,
+                        subkategorija: subkategorija
+                    });
+
+                    uvezeni++;
+                    if (uvezeni === vkupno) {
+                        setData(data);
+                        renderLista();
+                        var katLabel = getLabel(kategorija, subkategorija) || kategorija;
+                        showToast('✅ Увезени ' + uvezeni + ' HTML датотеки во "' + katLabel + '"');
+                    }
+                } catch(err) {
+                    showToast('❌ Грешка при увоз на ' + file.name);
+                }
+            };
+            reader.onerror = function() {
+                showToast('❌ Грешка при читање на ' + file.name);
+            };
+            reader.readAsText(file);
+        })(files[i]);
+    }
+
+    event.target.value = '';
+}
+
+// ============================================================
+// 6. УВОЗ ДОКУМЕНТ
+// ============================================================
+function uvoziDokument(event) {
+    var files = event.target.files;
+    if (!files || files.length === 0) {
+        showToast('⚠️ Нема избрани датотеки');
+        return;
+    }
+
+    var target = getTargetCategory();
+    var kategorija = target.kategorija;
+    var subkategorija = target.subkategorija;
+    var data = getData();
+    var uvezeni = 0;
+    var vkupno = files.length;
+
+    for (var i = 0; i < vkupno; i++) {
+        (function(file) {
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    var content = e.target.result;
+                    var base64 = '';
+                    try {
+                        base64 = btoa(content);
+                    } catch(err) {
+                        base64 = btoa(unescape(encodeURIComponent(content)));
+                    }
+
+                    data.push({
+                        id: generateId(),
+                        naslov: file.name,
+                        htmlContent: null,
+                        datum: new Date().toISOString(),
+                        kategorija: kategorija,
+                        subkategorija: subkategorija,
+                        fileType: file.type || 'application/octet-stream',
+                        fileData: base64,
+                        fileName: file.name
+                    });
+
+                    uvezeni++;
+                    if (uvezeni === vkupno) {
+                        setData(data);
+                        renderLista();
+                        var katLabel = getLabel(kategorija, subkategorija) || kategorija;
+                        showToast('✅ Увезени ' + uvezeni + ' документи во "' + katLabel + '"');
+                    }
+                } catch(err) {
+                    showToast('❌ Грешка при увоз на ' + file.name);
+                }
+            };
+            reader.onerror = function() {
+                showToast('❌ Грешка при читање на ' + file.name);
+            };
+            reader.readAsBinaryString(file);
+        })(files[i]);
+    }
+
+    event.target.value = '';
+}
+
+document.getElementById('htmlInput').addEventListener('change', uvoziHTML);
+document.getElementById('docInput').addEventListener('change', uvoziDokument);
+
+// ============================================================
+// 7. ПРЕГЛЕД
+// ============================================================
+function previewItem(id) {
+    var data = getData();
+    var item = null;
+    for (var i = 0; i < data.length; i++) {
+        if (data[i].id === id) { item = data[i]; break; }
+    }
+    if (!item) { showToast('Датотеката не е пронајдена'); return; }
+
+    if (item.htmlContent) {
+        var blob = new Blob([item.htmlContent], { type: 'text/html' });
+        var url = URL.createObjectURL(blob);
+        window.open(url, '_blank');
+        setTimeout(function() { URL.revokeObjectURL(url); }, 60000);
+    } else if (item.fileData) {
+        try {
+            var binaryString = atob(item.fileData);
+            var bytes = new Uint8Array(binaryString.length);
+            for (var j = 0; j < binaryString.length; j++) {
+                bytes[j] = binaryString.charCodeAt(j);
+            }
+            var blob2 = new Blob([bytes], { type: item.fileType || 'application/octet-stream' });
+            var url2 = URL.createObjectURL(blob2);
+            if (item.fileType === 'application/pdf') {
+                window.open(url2, '_blank');
+            } else {
+                var a = document.createElement('a');
+                a.href = url2;
+                a.download = item.fileName || 'document';
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+            }
+            setTimeout(function() { URL.revokeObjectURL(url2); }, 60000);
+        } catch(err) {
+            showToast('❌ Грешка при отворање на документот');
+        }
+    } else {
+        showToast('Нема содржина за преглед');
+    }
+}
+
+// ============================================================
+// 8. БРИШЕЊЕ
+// ============================================================
+function izbrisiEdna(id) {
+    if (!confirm('Да ја избришеме оваа датотека?')) return;
+    var data = getData();
+    var newData = [];
+    for (var i = 0; i < data.length; i++) {
+        if (data[i].id !== id) newData.push(data[i]);
+    }
+    setData(newData);
+    renderLista();
+    showToast('🗑 Избришано');
+}
+
+function izbrisiSite() {
+    if (!confirm('Избриши ги СИТЕ датотеки?')) return;
+    setData([]);
+    renderLista();
+    showToast('🗑 Сите избришани');
+}
+
+// ============================================================
+// 9. ИЗВОЗ JSON
+// ============================================================
+function izveziJSON() {
+    var data = getData();
+    if (data.length === 0) {
+        showToast('⚠️ Нема податоци за извоз');
+        return;
+    }
+
+    var totalSize = 0;
+    for (var i = 0; i < data.length; i++) {
+        if (data[i].htmlContent) totalSize += data[i].htmlContent.length;
+        if (data[i].fileData) totalSize += data[i].fileData.length;
+    }
+    var sizeMB = (totalSize / (1024 * 1024)).toFixed(1);
+    
+    if (sizeMB > 5) {
+        if (!confirm('⚠️ Датотеката е голема (~' + sizeMB + ' MB). Дали сакате да продолжите?')) {
+            return;
+        }
+    }
+
+    var exportData = data.map(function(item) {
+        return {
+            id: item.id,
+            naslov: item.naslov,
+            datum: item.datum,
+            kategorija: item.kategorija,
+            subkategorija: item.subkategorija,
+            fileType: item.fileType || null,
+            fileName: item.fileName || null,
+            htmlContent: item.htmlContent || null,
+            fileData: item.fileData || null
+        };
+    });
+
+    var blob = new Blob([JSON.stringify(exportData, null, 2)], { type: 'application/json' });
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement('a');
+    a.href = url;
+    a.download = 'platforma_podatoci_' + new Date().toISOString().slice(0,10) + '.json';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    setTimeout(function() { URL.revokeObjectURL(url); }, 60000);
+    showToast('📤 Извезени ' + data.length + ' датотеки (' + sizeMB + ' MB)');
+}
+
+// ============================================================
+// 10. УВОЗ JSON
+// ============================================================
+function uvoziJSON(event) {
+    var file = event.target.files[0];
+    if (!file) {
+        showToast('⚠️ Нема избрана датотека');
+        return;
+    }
+
+    if (file.size > 50 * 1024 * 1024) {
+        showToast('⚠️ Датотеката е преголема (>50MB)');
+        return;
+    }
+
+    var reader = new FileReader();
+    reader.onload = function(e) {
+        try {
+            var importedData = JSON.parse(e.target.result);
+            if (!Array.isArray(importedData)) {
+                showToast('❌ Невалиден JSON формат');
+                return;
+            }
+
+            if (importedData.length === 0) {
+                showToast('⚠️ Датотеката е празна');
+                return;
+            }
+
+            if (!confirm('Дали сакате да ги ЗАМЕНИТЕ постоечките податоци со увезените?')) {
+                return;
+            }
+
+            var data = [];
+            var uvezeni = 0;
+
+            for (var i = 0; i < importedData.length; i++) {
+                var item = importedData[i];
+                if (!item.naslov) continue;
+                
+                data.push({
+                    id: item.id || generateId(),
+                    naslov: item.naslov || 'Неименуван',
+                    htmlContent: item.htmlContent || null,
+                    fileData: item.fileData || null,
+                    datum: item.datum || new Date().toISOString(),
+                    kategorija: item.kategorija || 'matematika',
+                    subkategorija: item.subkategorija || 'podgotovka',
+                    fileType: item.fileType || null,
+                    fileName: item.fileName || null
+                });
+                uvezeni++;
+            }
+
+            if (uvezeni === 0) {
+                showToast('⚠️ Нема валидни податоци за увоз');
+                return;
+            }
+
+            setData(data);
+            renderLista();
+            showToast('✅ Увезени ' + uvezeni + ' документи од JSON');
+        } catch(err) {
+            showToast('❌ Грешка при читање на JSON: ' + err.message);
+        }
     };
-    r.readAsBinaryString(file);
-  });
-  ev.target.value="";
+    reader.onerror = function() {
+        showToast('❌ Грешка при читање на датотеката');
+    };
+    reader.readAsText(file);
+    
+    event.target.value = '';
 }
 
-function izbrisiEdna(id){
-  if(!confirm("Да ја избришеме оваа датотека?")) return;
-  setData(getData().filter(function(i){ return i.id!==id; }));
-  renderTitleList(); showToast("🗑 Избришано");
-}
-
-function izbrisiSite(){
-  if(!confirm("Да ги избришеш сите во оваа листа?")) return;
-  var data;
-  if(searchQuery || activeCategory==="site") data=[];
-  else data=getData().filter(function(i){
-    if(activeCategory==="matematika") return !(i.kategorija==="matematika"&&(!activeSub||i.subkategorija===activeSub));
-    if(activeCategory==="klasen-cas") return i.kategorija!=="klasen-cas";
-    return true;
-  });
-  setData(data); renderTitleList(); showToast("🗑 Избришано");
-}
-
-function initSample(){
-  if(getData().length) return;
-  // Try snapshot first
-  try{
-    var snap=localStorage.getItem(SNAPSHOT_KEY);
-    if(snap){ var arr=JSON.parse(snap); if(Array.isArray(arr)&&arr.length){ setData(arr); return; } }
-  }catch(e){}
-  setData([
-    {id:generateId(),naslov:"Геометриски фигури - вовед",htmlContent:"<!DOCTYPE html><html><head><meta charset='utf-8'><title>Геометрија</title><style>body{font-family:sans-serif;padding:40px;background:#f0f9ff}</style></head><body><h1>📐 Геометриски фигури</h1><p>Вовед</p></body></html>",datum:new Date().toISOString(),kategorija:"matematika",subkategorija:"podgotovka"},
-    {id:generateId(),naslov:"Квадратни равенки",htmlContent:"<!DOCTYPE html><html><head><meta charset='utf-8'><title>Квадратни</title><style>body{font-family:sans-serif;padding:40px;background:#f0fdf4}</style></head><body><h1>📐 Квадратни равенки</h1><p style='font-size:22px'>ax² + bx + c = 0</p></body></html>",datum:new Date(Date.now()-86400000).toISOString(),kategorija:"matematika",subkategorija:"nastavni"},
-    {id:generateId(),naslov:"Родителска средба",htmlContent:"<!DOCTYPE html><html><head><meta charset='utf-8'><title>Родителска</title><style>body{font-family:sans-serif;padding:40px;background:#fef2f2}</style></head><body><h1>👪 Родителска средба</h1></body></html>",datum:new Date(Date.now()-172800000).toISOString(),kategorija:"klasen-cas",subkategorija:null}
-  ]);
-}
-
-function setupManifest(){
-  var base=location.pathname;
-  if(base.endsWith("index.html")) base=base.slice(0,-10);
-  if(!base.endsWith("/")) base+="/";
-  var m={name:"Платформа за настава",short_name:"Настава",start_url:base,scope:base,display:"standalone",background_color:"#0f172a",theme_color:"#1e40af",icons:[{src:ICON_192,sizes:"192x192",type:"image/png",purpose:"any maskable"},{src:ICON_512,sizes:"512x512",type:"image/png",purpose:"any maskable"}]};
-  var link=document.querySelector('link[rel="manifest"]');
-  if(!link){ link=document.createElement("link"); link.rel="manifest"; document.head.appendChild(link); }
-  link.href=URL.createObjectURL(new Blob([JSON.stringify(m)],{type:"application/json"}));
-}
-function registerSW(){
-  if(!("serviceWorker" in navigator)) return;
-  try{ navigator.serviceWorker.register(URL.createObjectURL(new Blob([SW_CODE],{type:"application/javascript"}))).catch(function(){}); }catch(e){}
-}
-var deferredPrompt=null;
-window.addEventListener("beforeinstallprompt", function(e){
-  e.preventDefault(); deferredPrompt=e;
-  document.getElementById("installBanner").classList.add("show");
-});
-function installPWA(){
-  if(!deferredPrompt){ showToast("Chrome → Install app"); return; }
-  deferredPrompt.prompt();
-  deferredPrompt.userChoice.then(function(){ deferredPrompt=null; document.getElementById("installBanner").classList.remove("show"); });
-}
-
-document.addEventListener("DOMContentLoaded", function(){
-  setupManifest(); registerSW(); initSample(); startIntro();
-  var gs=document.getElementById("globalSearch");
-  var si=document.getElementById("searchInput");
-  if(gs){ gs.addEventListener("input", function(){ doSearch(gs.value); }); gs.addEventListener("search", function(){ doSearch(gs.value); }); }
-  if(si){ si.addEventListener("input", function(){ doSearch(si.value); }); si.addEventListener("search", function(){ doSearch(si.value); }); }
+// ============================================================
+// 11. СТАРТ
+// ============================================================
+document.addEventListener('DOMContentLoaded', function() {
+    var btns = document.querySelectorAll('.tab-btn');
+    for (var i = 0; i < btns.length; i++) {
+        btns[i].classList.remove('active');
+    }
+    document.querySelector('.tab-btn[data-category="matematika"]').classList.add('active');
+    activeCategory = 'matematika';
+    activeSub = 'podgotovka';
+    
+    var items = document.querySelectorAll('.submenu-item');
+    for (var j = 0; j < items.length; j++) {
+        items[j].classList.remove('active-sub');
+        if (items[j].dataset.sub === 'podgotovka') {
+            items[j].classList.add('active-sub');
+        }
+    }
+    
+    renderLista();
+    showToast('🚀 Платформата е активна!');
 });
 </script>
 </body>
