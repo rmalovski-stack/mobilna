@@ -7,289 +7,119 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <title>СОУ „28 Ноември“ – Платформа за настава</title>
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%2316a34a'/%3E%3Ctext x='50' y='72' font-size='70' text-anchor='middle' fill='white' font-family='serif'%3E%CF%80%3C/text%3E%3C/svg%3E" type="image/svg+xml">
+    <script src="https://cdn.jsdelivr.net/npm/localforage@1.10.0/dist/localforage.min.js"></script>
     <style>
-        :root {
-            --primary: #1e40af;
-            --green: #16a34a;
-            --green-light: #22c55e;
-            --bg: #f4f7fc;
-            --card: #fff;
-            --text: #1e293b;
-            --muted: #64748b;
-            --border: #e2e8f0;
-        }
-        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-        html, body { height: 100%; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: var(--bg); color: var(--text); overflow: hidden; }
+        *{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',sans-serif;-webkit-tap-highlight-color:transparent}
+        html,body{height:100%;background:#f4f7fc;color:#1e293b;overflow:hidden}
 
-        /* ===== INTRO (динамични екрани) ===== */
-        #intro { position: fixed; inset: 0; z-index: 1000; display: flex; }
-        #intro .p { flex: 1; display: none; flex-direction: column; align-items: center; justify-content: center; color: #fff; text-align: center; padding: 40px; }
-        #intro .p.on { display: flex; }
-        #p1 { background: linear-gradient(160deg, #0f172a 0%, #1e40af 45%, #16a34a 100%); }
-        #p2 { background: linear-gradient(160deg, #1e40af 0%, #2563eb 50%, #16a34a 100%); }
-        #intro .sig { font-size: 110px; color: #fff; text-shadow: 0 0 30px rgba(34,197,94,.7), 0 0 60px rgba(59,130,246,.5); font-weight: 300; line-height: 1; }
-        #intro .lb { margin-top: 22px; letter-spacing: 4px; text-transform: uppercase; font-size: 15px; color: #bbf7d0; }
-        #intro .a { font-size: 17px; opacity: .95; }
-        #intro .b { font-size: 15px; opacity: .85; margin: 10px 0 18px; }
-        #intro .c { font-size: 26px; font-weight: 800; line-height: 1.3; }
-        #intro .line { width: 64px; height: 4px; background: linear-gradient(90deg, #3b82f6, #22c55e); margin: 20px auto; border-radius: 2px; }
+        /* ===== INTRO ===== */
+        #intro{position:fixed;inset:0;z-index:1000;display:flex}
+        #intro .p{flex:1;display:none;flex-direction:column;align-items:center;justify-content:center;color:#fff;text-align:center;padding:40px}
+        #intro .p.on{display:flex}
+        #p1{background:linear-gradient(160deg,#0f172a 0%,#1e40af 45%,#22c55e 100%)}
+        #p2{background:linear-gradient(160deg,#1e40af 0%,#2563eb 50%,#16a34a 100%)}
+        #intro .sig{font-size:110px;color:#fff;text-shadow:0 0 30px rgba(34,197,94,.7),0 0 60px rgba(59,130,246,.5);font-weight:300;line-height:1}
+        #intro .lb{margin-top:22px;letter-spacing:4px;text-transform:uppercase;font-size:15px;color:#bbf7d0}
+        #intro .a{font-size:17px;opacity:.95}
+        #intro .b{font-size:15px;opacity:.85;margin:10px 0 18px}
+        #intro .c{font-size:26px;font-weight:800;line-height:1.3}
+        #intro .line{width:64px;height:4px;background:linear-gradient(90deg,#3b82f6,#22c55e);margin:20px auto;border-radius:2px}
 
-        /* ===== APP SHELL ===== */
-        #shell { display: none; flex-direction: column; height: 100%; height: 100dvh; }
-        #shell.show { display: flex; }
+        /* ===== APP ===== */
+        #shell{display:none;flex-direction:column;height:100%;height:100dvh}
+        #shell.show{display:flex}
 
-        .header {
-            background: linear-gradient(135deg, #0d1b3e, #1a237e 40%, #0d47a1);
-            padding: max(12px, env(safe-area-inset-top)) 16px 10px;
-            flex-shrink: 0;
-            box-shadow: 0 4px 20px rgba(26,35,126,0.3);
-            text-align: center;
-            z-index: 5;
-        }
-        .header .skola { font-size: 14px; font-weight: 700; color: rgba(255,255,255,0.9); }
-        .header .profesor { font-size: 12px; font-weight: 400; color: rgba(255,255,255,0.75); }
-        .header .naslov { font-size: 19px; font-weight: 800; color: #fff; margin-top: 2px; text-shadow: 0 2px 8px rgba(0,0,0,0.15); }
-        .header .naslov span { background: rgba(255,255,255,0.12); padding: 2px 12px; border-radius: 30px; font-size: 11px; font-weight: 500; margin-left: 6px; display: inline-block; }
+        .header{background:linear-gradient(135deg,#0d1b3e,#1a237e 40%,#0d47a1);padding:max(12px,env(safe-area-inset-top)) 16px 10px;flex-shrink:0;box-shadow:0 4px 20px rgba(26,35,126,0.3);text-align:center;z-index:5}
+        .header .skola{font-size:14px;font-weight:700;color:rgba(255,255,255,0.9)}
+        .header .profesor{font-size:12px;font-weight:400;color:rgba(255,255,255,0.75)}
+        .header .naslov{font-size:19px;font-weight:800;color:#fff;margin-top:2px;text-shadow:0 2px 8px rgba(0,0,0,0.15)}
+        .header .naslov span{background:rgba(255,255,255,0.12);padding:2px 12px;border-radius:30px;font-size:11px;font-weight:500;margin-left:6px;display:inline-block}
 
-        .main-content {
-            flex: 1;
-            overflow-y: auto;
-            -webkit-overflow-scrolling: touch;
-            padding: 10px 14px 80px;
-            background: var(--bg);
-        }
+        .main-content{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:10px 14px 80px;background:#f4f7fc}
 
-        /* ===== ХОРИЗОНТАЛНО МЕНИ (ПОДКАТЕГОРИИ) ===== */
-        .submenu-wrapper { display: none; gap: 8px; flex-wrap: wrap; padding: 4px 0 10px; margin: 0 0 8px; }
-        .submenu-wrapper.open { display: flex; }
-        .submenu-item {
-            flex: 1 1 calc(50% - 8px);
-            min-width: calc(50% - 8px);
-            max-width: calc(50% - 8px);
-            background: #dcfce7;
-            padding: 10px 8px;
-            border-radius: 14px;
-            font-size: 13px;
-            font-weight: 600;
-            color: #166534;
-            cursor: pointer;
-            transition: all .25s;
-            border: 3px solid #86efac;
-            text-align: center;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            line-height: 1.3;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.04);
-            min-height: 56px;
-        }
-        .submenu-item .sub-line1 { display: block; font-size: 13px; }
-        .submenu-item .sub-line2 { display: block; font-size: 13px; font-weight: 500; }
-        .submenu-item.active-sub {
-            background: #1a237e;
-            color: #fff;
-            border-color: #1a237e;
-            box-shadow: 0 4px 16px rgba(26,35,126,0.35);
-            transform: scale(1.02);
-        }
-        .submenu-item.active-sub .sub-line1,
-        .submenu-item.active-sub .sub-line2 { color: #fff; }
-        .submenu-item:hover { background: #bbf7d0; border-color: #4ade80; transform: translateY(-2px); }
-        .submenu-item.active-sub:hover { background: #0d1b5e; border-color: #0d1b5e; transform: scale(1.02) translateY(-2px); }
+        /* ===== ПОДКАТЕГОРИИ ===== */
+        .submenu-wrapper{display:none;gap:8px;flex-wrap:wrap;padding:4px 0 10px;margin:0 0 8px}
+        .submenu-wrapper.open{display:flex}
+        .submenu-item{flex:1 1 calc(50% - 8px);min-width:calc(50% - 8px);max-width:calc(50% - 8px);background:#dcfce7;padding:10px 8px;border-radius:14px;font-size:13px;font-weight:600;color:#166534;cursor:pointer;transition:all .25s;border:3px solid #86efac;text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1.3;box-shadow:0 2px 6px rgba(0,0,0,0.04);min-height:56px}
+        .submenu-item .sub-line1{display:block;font-size:13px}
+        .submenu-item .sub-line2{display:block;font-size:13px;font-weight:500}
+        .submenu-item.active-sub{background:#1a237e;color:#fff;border-color:#1a237e;box-shadow:0 4px 16px rgba(26,35,126,0.35);transform:scale(1.02)}
+        .submenu-item.active-sub .sub-line1,.submenu-item.active-sub .sub-line2{color:#fff}
+        .submenu-item:hover{background:#bbf7d0;border-color:#4ade80;transform:translateY(-2px)}
+        .submenu-item.active-sub:hover{background:#0d1b5e;border-color:#0d1b5e;transform:scale(1.02) translateY(-2px)}
+        @media(max-width:480px){.submenu-item{flex:1 1 calc(50% - 6px);min-width:calc(50% - 6px);max-width:calc(50% - 6px);padding:8px 4px;min-height:48px;border-radius:12px}.submenu-item .sub-line1,.submenu-item .sub-line2{font-size:11px}}
+        @media(min-width:600px){.submenu-item{flex:1 1 calc(50% - 8px);min-width:calc(50% - 8px);max-width:calc(50% - 8px);padding:12px 10px;min-height:64px;border-radius:16px}.submenu-item .sub-line1,.submenu-item .sub-line2{font-size:15px}}
 
-        @media (max-width: 480px) {
-            .submenu-item { flex: 1 1 calc(50% - 6px); min-width: calc(50% - 6px); max-width: calc(50% - 6px); padding: 8px 4px; min-height: 48px; border-radius: 12px; }
-            .submenu-item .sub-line1, .submenu-item .sub-line2 { font-size: 11px; }
-        }
-        @media (min-width: 600px) {
-            .submenu-item { flex: 1 1 calc(50% - 8px); min-width: calc(50% - 8px); max-width: calc(50% - 8px); padding: 12px 10px; min-height: 64px; border-radius: 16px; }
-            .submenu-item .sub-line1, .submenu-item .sub-line2 { font-size: 15px; }
-        }
+        .toolbar{display:flex;flex-wrap:wrap;gap:8px;justify-content:space-between;align-items:center;background:#f8fafc;padding:8px 12px;border-radius:12px;margin-bottom:14px}
+        .btn{padding:6px 16px;border:none;border-radius:8px;font-weight:600;font-size:13px;cursor:pointer;transition:.2s;background:#e2e8f0;color:#1e293b;white-space:nowrap}
+        .btn-primary{background:#3b82f6;color:#fff}
+        .btn-primary:hover{background:#2563eb}
+        .btn-success{background:#22c55e;color:#fff}
+        .btn-success:hover{background:#16a34a}
+        .btn-info{background:#8b5cf6;color:#fff}
+        .btn-info:hover{background:#7c3aed}
+        .btn-danger{background:#ef4444;color:#fff}
+        .btn-danger:hover{background:#dc2626}
+        .btn-warning{background:#f59e0b;color:#fff}
+        .btn-warning:hover{background:#d97706}
+        .file-input-hidden,.file-input-hidden2{display:none}
 
-        .toolbar {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            justify-content: space-between;
-            align-items: center;
-            background: #f8fafc;
-            padding: 8px 12px;
-            border-radius: 12px;
-            margin-bottom: 14px;
-        }
-        .btn {
-            padding: 6px 16px;
-            border: none;
-            border-radius: 8px;
-            font-weight: 600;
-            font-size: 13px;
-            cursor: pointer;
-            transition: .2s;
-            background: #e2e8f0;
-            color: #1e293b;
-            white-space: nowrap;
-        }
-        .btn-primary { background: #3b82f6; color: #fff; }
-        .btn-primary:hover { background: #2563eb; }
-        .btn-success { background: #22c55e; color: #fff; }
-        .btn-success:hover { background: #16a34a; }
-        .btn-info { background: #8b5cf6; color: #fff; }
-        .btn-info:hover { background: #7c3aed; }
-        .btn-danger { background: #ef4444; color: #fff; }
-        .btn-danger:hover { background: #dc2626; }
-        .btn-warning { background: #f59e0b; color: #fff; }
-        .btn-warning:hover { background: #d97706; }
-        .file-input-hidden, .file-input-hidden2 { display: none; }
+        .lista{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;margin:10px 0 14px}
+        .karticka{background:#fff;padding:12px 14px;border-radius:12px;border:1px solid #e2e8f0;transition:.2s;display:flex;flex-direction:column;gap:4px}
+        .karticka:hover{transform:translateY(-2px);box-shadow:0 4px 12px rgba(0,0,0,0.06);border-color:#3b82f6}
+        .karticka .naslov-html{font-weight:700;font-size:15px;color:#0f172a;word-break:break-word;display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+        .karticka .naslov-html .tip-badge-sm{font-size:10px;background:#e2e8f0;padding:1px 8px;border-radius:20px;font-weight:400}
+        .karticka .datum-html{font-size:12px;color:#64748b}
+        .karticka .kategorija-badge{font-size:10px;background:#dbeafe;padding:1px 10px;border-radius:20px;color:#1e40af;display:inline-block;width:fit-content;font-weight:500}
+        .karticka .akcii{display:flex;gap:4px;flex-wrap:wrap;margin-top:4px}
+        .karticka .akcii .btn{padding:4px 10px;font-size:12px;flex:1;text-align:center}
+        .prazno{text-align:center;padding:30px 16px;color:#94a3b8;grid-column:1/-1}
+        .prazno span{font-size:36px;display:block;margin-bottom:6px}
 
-        .lista {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-            gap: 12px;
-            margin: 10px 0 14px;
+        /* ===== ДОЛНА ЛЕНТА – СТАТИЧНА (FIXED) ЗЕЛЕНА ===== */
+        .bottom-nav{
+            position:fixed;
+            bottom:0;left:0;right:0;
+            display:flex;
+            background:linear-gradient(135deg,#15803d 0%,#16a34a 50%,#22c55e 100%);
+            border-top:2px solid #166534;
+            padding:6px 4px env(safe-area-inset-bottom,0) 4px;
+            box-shadow:0 -4px 20px rgba(22,163,74,0.35);
+            z-index:1000;
+            height:60px;min-height:60px;
         }
-        .karticka {
-            background: #fff;
-            padding: 12px 14px;
-            border-radius: 12px;
-            border: 1px solid #e2e8f0;
-            transition: .2s;
-            display: flex;
-            flex-direction: column;
-            gap: 4px;
-        }
-        .karticka:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.06);
-            border-color: #3b82f6;
-        }
-        .karticka .naslov-html {
-            font-weight: 700;
-            font-size: 15px;
-            color: #0f172a;
-            word-break: break-word;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            flex-wrap: wrap;
-        }
-        .karticka .naslov-html .tip-badge-sm {
-            font-size: 10px;
-            background: #e2e8f0;
-            padding: 1px 8px;
-            border-radius: 20px;
-            font-weight: 400;
-        }
-        .karticka .datum-html { font-size: 12px; color: #64748b; }
-        .karticka .kategorija-badge {
-            font-size: 10px;
-            background: #dbeafe;
-            padding: 1px 10px;
-            border-radius: 20px;
-            color: #1e40af;
-            display: inline-block;
-            width: fit-content;
-            font-weight: 500;
-        }
-        .karticka .akcii { display: flex; gap: 4px; flex-wrap: wrap; margin-top: 4px; }
-        .karticka .akcii .btn { padding: 4px 10px; font-size: 12px; flex: 1; text-align: center; }
-        .prazno {
-            text-align: center;
-            padding: 30px 16px;
-            color: #94a3b8;
-            grid-column: 1 / -1;
-        }
-        .prazno span { font-size: 36px; display: block; margin-bottom: 6px; }
+        .tab-btn{flex:1;padding:8px 4px 6px;display:flex;flex-direction:column;align-items:center;justify-content:center;background:transparent;border:none;font-size:11px;font-weight:600;color:rgba(255,255,255,0.75);cursor:pointer;transition:.25s;border-radius:12px;margin:0 4px;gap:2px;text-align:center;line-height:1.2;height:100%}
+        .tab-btn .tab-icon{font-size:22px}
+        .tab-btn .tab-label{font-size:11px;font-weight:600;white-space:nowrap}
+        .tab-btn.active{color:#fff;background:rgba(255,255,255,0.22);box-shadow:0 2px 8px rgba(0,0,0,0.15)}
+        .tab-btn:active{background:rgba(255,255,255,0.3);transform:scale(.97)}
 
-        /* ===== ДОЛНА НАВИГАЦИЈА – ФИКСИРАНА, ЗЕЛЕНА ===== */
-        .bottom-nav {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            display: flex;
-            background: linear-gradient(135deg, #15803d 0%, #16a34a 50%, #22c55e 100%);
-            border-top: 2px solid #166534;
-            padding: 6px 4px env(safe-area-inset-bottom, 0) 4px;
-            box-shadow: 0 -4px 20px rgba(22, 163, 74, 0.35);
-            z-index: 1000;
-            height: 60px;
-            min-height: 60px;
-        }
-        .tab-btn {
-            flex: 1;
-            padding: 8px 4px 6px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            background: transparent;
-            border: none;
-            font-size: 11px;
-            font-weight: 600;
-            color: rgba(255,255,255,0.75);
-            cursor: pointer;
-            transition: .25s;
-            border-radius: 12px;
-            margin: 0 4px;
-            gap: 2px;
-            text-align: center;
-            line-height: 1.2;
-            height: 100%;
-        }
-        .tab-btn .tab-icon { font-size: 22px; }
-        .tab-btn .tab-label { font-size: 11px; font-weight: 600; white-space: nowrap; }
-        .tab-btn.active {
-            color: #fff;
-            background: rgba(255,255,255,0.22);
-            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-        }
-        .tab-btn:active { background: rgba(255,255,255,0.3); transform: scale(.97); }
+        .toast{position:fixed;bottom:72px;left:50%;transform:translateX(-50%);background:#1e293b;color:#fff;padding:10px 20px;border-radius:10px;font-size:13px;box-shadow:0 4px 16px rgba(0,0,0,0.2);display:none;z-index:2000;max-width:90%;text-align:center}
+        .toast.show{display:block;animation:fadeInUp .3s ease}
+        @keyframes fadeInUp{from{opacity:0;transform:translateX(-50%) translateY(20px)}to{opacity:1;transform:translateX(-50%) translateY(0)}}
 
-        .toast {
-            position: fixed;
-            bottom: 72px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: #1e293b;
-            color: #fff;
-            padding: 10px 20px;
-            border-radius: 10px;
-            font-size: 13px;
-            box-shadow: 0 4px 16px rgba(0,0,0,0.2);
-            display: none;
-            z-index: 2000;
-            max-width: 90%;
-            text-align: center;
+        @media(max-width:480px){
+            .bottom-nav{height:52px;min-height:52px}
+            .tab-btn .tab-icon{font-size:18px}
+            .tab-btn .tab-label{font-size:10px}
+            .header .naslov{font-size:17px}
+            .lista{grid-template-columns:1fr}
+            .main-content{padding:8px 10px 65px}
+            .tab-btn{padding:4px 2px}
+            .toast{bottom:62px}
         }
-        .toast.show { display: block; animation: fadeInUp .3s ease; }
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateX(-50%) translateY(20px); }
-            to { opacity: 1; transform: translateX(-50%) translateY(0); }
-        }
-
-        @media (max-width: 480px) {
-            .bottom-nav { height: 52px; min-height: 52px; }
-            .tab-btn .tab-icon { font-size: 18px; }
-            .tab-btn .tab-label { font-size: 10px; }
-            .header .naslov { font-size: 17px; }
-            .lista { grid-template-columns: 1fr; }
-            .main-content { padding: 8px 10px 65px; }
-            .tab-btn { padding: 4px 2px; }
-            .toast { bottom: 62px; }
-        }
-        @media (min-width: 600px) {
-            .bottom-nav { height: 68px; min-height: 68px; }
-            .tab-btn .tab-icon { font-size: 26px; }
-            .tab-btn .tab-label { font-size: 13px; }
-            .tab-btn { padding: 10px 8px; }
-            .main-content { padding: 12px 20px 85px; }
-            .toast { bottom: 80px; }
+        @media(min-width:600px){
+            .bottom-nav{height:68px;min-height:68px}
+            .tab-btn .tab-icon{font-size:26px}
+            .tab-btn .tab-label{font-size:13px}
+            .tab-btn{padding:10px 8px}
+            .main-content{padding:12px 20px 85px}
+            .toast{bottom:80px}
         }
     </style>
 </head>
 <body>
-<!-- ===== INTRO ===== -->
+<!-- INTRO -->
 <div id="intro">
     <div class="p on" id="p1">
         <div class="sig">π</div>
@@ -303,7 +133,7 @@
     </div>
 </div>
 
-<!-- ===== APP ===== -->
+<!-- APP -->
 <div id="shell">
     <div class="header">
         <div class="skola">🏫 СОУ "28 Ноември" – Дебар</div>
@@ -312,23 +142,21 @@
     </div>
 
     <div class="main-content" id="mainContent">
-        <!-- ===== ХОРИЗОНТАЛНО МЕНИ (ПОДКАТЕГОРИИ) ===== -->
         <div id="submenuContainer" class="submenu-wrapper open">
-            <div class="submenu-item active-sub" data-sub="podgotovka" onclick="filterSubcategory('podgotovka', this)">
+            <div class="submenu-item active-sub" data-sub="podgotovka" onclick="filterSubcategory('podgotovka',this)">
                 <span class="sub-line1">📝 Подготовка за</span><span class="sub-line2">настава</span>
             </div>
-            <div class="submenu-item" data-sub="nastavni" onclick="filterSubcategory('nastavni', this)">
+            <div class="submenu-item" data-sub="nastavni" onclick="filterSubcategory('nastavni',this)">
                 <span class="sub-line1">📚 Наставни</span><span class="sub-line2">активности</span>
             </div>
-            <div class="submenu-item" data-sub="vonnastavni" onclick="filterSubcategory('vonnastavni', this)">
+            <div class="submenu-item" data-sub="vonnastavni" onclick="filterSubcategory('vonnastavni',this)">
                 <span class="sub-line1">🏫 Воннаставни</span><span class="sub-line2">активности</span>
             </div>
-            <div class="submenu-item" data-sub="drugo" onclick="filterSubcategory('drugo', this)">
+            <div class="submenu-item" data-sub="drugo" onclick="filterSubcategory('drugo',this)">
                 <span class="sub-line1">📌 Друго</span><span class="sub-line2">&nbsp;</span>
             </div>
         </div>
 
-        <!-- ===== TOOLBAR ===== -->
         <div class="toolbar">
             <div style="font-weight:600;font-size:14px;">📁 Датотеки</div>
             <div style="display:flex;gap:6px;flex-wrap:wrap;">
@@ -343,16 +171,15 @@
             </div>
         </div>
 
-        <!-- ===== ЛИСТА ===== -->
         <div id="listaContainer" class="lista"></div>
     </div>
 
-    <!-- ===== ДОЛНА НАВИГАЦИЈА (ФИКСИРАНА, ЗЕЛЕНА) ===== -->
+    <!-- СТАТИЧНА ЗЕЛЕНА ДОЛНА ЛЕНТА -->
     <div class="bottom-nav" id="bottomNav">
-        <button class="tab-btn active" data-category="matematika" onclick="switchTab('matematika', this)">
+        <button class="tab-btn active" data-category="matematika" onclick="switchTab('matematika',this)">
             <span class="tab-icon">📐</span><span class="tab-label">Математика</span>
         </button>
-        <button class="tab-btn" data-category="klasen-cas" onclick="switchTab('klasen-cas', this)">
+        <button class="tab-btn" data-category="klasen-cas" onclick="switchTab('klasen-cas',this)">
             <span class="tab-icon">🧑‍🏫</span><span class="tab-label">Класен час</span>
         </button>
     </div>
@@ -362,35 +189,87 @@
 
 <script>
 // ============================================================
-// 1. КОНФИГУРАЦИЈА
+// localForage + миграција од localStorage
 // ============================================================
 var STORAGE_KEY = 'edu_70_mesta';
+var OLD_KEYS = ['edu_70_mesta', 'edu_db_v3', 'edu_snap_v3'];
 var activeCategory = 'matematika';
 var activeSub = 'podgotovka';
+var cache = null;
 
-// ============================================================
-// 2. ПОМОШНИ
-// ============================================================
-function getData() {
+var db = localforage.createInstance({
+    name: 'NastavaPlatforma',
+    storeName: 'dokumenti',
+    description: 'Платформа за настава'
+});
+
+function loadFromLocalStorage() {
+    for (var i = 0; i < OLD_KEYS.length; i++) {
+        try {
+            var raw = localStorage.getItem(OLD_KEYS[i]);
+            if (raw) {
+                var a = JSON.parse(raw);
+                if (Array.isArray(a) && a.length) return a;
+            }
+        } catch(e) {}
+    }
     try {
-        var raw = localStorage.getItem(STORAGE_KEY);
-        if (raw) return JSON.parse(raw);
+        var s = sessionStorage.getItem(STORAGE_KEY);
+        if (s) {
+            var b = JSON.parse(s);
+            if (Array.isArray(b) && b.length) return b;
+        }
     } catch(e) {}
-    try {
-        var raw2 = sessionStorage.getItem(STORAGE_KEY);
-        if (raw2) return JSON.parse(raw2);
-    } catch(e) {}
-    return [];
+    return null;
 }
 
-function setData(data) {
-    try {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
-    } catch(e) {
-        try {
-            sessionStorage.setItem(STORAGE_KEY, JSON.stringify(data));
-        } catch(e2) {}
+function getData(cb) {
+    if (cache !== null) {
+        if (cb) cb(cache);
+        return cache;
     }
+    // синхрона fallback – ќе се пополни async
+    return cache || [];
+}
+
+function loadData(cb) {
+    if (cache !== null) { cb(cache); return; }
+    db.getItem(STORAGE_KEY).then(function(val) {
+        if (Array.isArray(val) && val.length) {
+            cache = val;
+            cb(cache);
+            return;
+        }
+        var old = loadFromLocalStorage();
+        if (old && old.length) {
+            cache = old;
+            db.setItem(STORAGE_KEY, old).then(function() {
+                try {
+                    OLD_KEYS.forEach(function(k) { localStorage.removeItem(k); });
+                    sessionStorage.removeItem(STORAGE_KEY);
+                } catch(e) {}
+                showToast('✅ Мигрирани ' + old.length + ' записи');
+                cb(cache);
+            }).catch(function() { cb(cache); });
+        } else {
+            cache = [];
+            cb(cache);
+        }
+    }).catch(function() {
+        var old = loadFromLocalStorage();
+        cache = (old && old.length) ? old : [];
+        cb(cache);
+    });
+}
+
+function setData(data, cb) {
+    cache = data;
+    db.setItem(STORAGE_KEY, data).then(function() {
+        if (cb) cb(true);
+    }).catch(function() {
+        showToast('❌ Грешка при зачувување');
+        if (cb) cb(false);
+    });
 }
 
 function generateId() {
@@ -432,20 +311,17 @@ function getTargetCategory() {
         return { kategorija: 'matematika', subkategorija: activeSub || 'podgotovka' };
     } else if (activeCategory === 'klasen-cas') {
         return { kategorija: 'klasen-cas', subkategorija: 'klasen' };
-    } else {
-        return { kategorija: 'matematika', subkategorija: 'podgotovka' };
     }
+    return { kategorija: 'matematika', subkategorija: 'podgotovka' };
 }
 
 // ============================================================
-// 3. ПРЕФРЛУВАЊЕ ПО ТАБОВИ
+// ТАБОВИ
 // ============================================================
 function switchTab(category, el) {
     activeCategory = category;
     var btns = document.querySelectorAll('.tab-btn');
-    for (var i = 0; i < btns.length; i++) {
-        btns[i].classList.remove('active');
-    }
+    for (var i = 0; i < btns.length; i++) btns[i].classList.remove('active');
     if (el) el.classList.add('active');
 
     var submenu = document.getElementById('submenuContainer');
@@ -455,15 +331,12 @@ function switchTab(category, el) {
         var items = document.querySelectorAll('.submenu-item');
         for (var j = 0; j < items.length; j++) {
             items[j].classList.remove('active-sub');
-            if (items[j].dataset.sub === activeSub) {
-                items[j].classList.add('active-sub');
-            }
+            if (items[j].dataset.sub === activeSub) items[j].classList.add('active-sub');
         }
     } else {
         submenu.classList.remove('open');
         activeSub = 'klasen';
     }
-
     renderLista();
     document.getElementById('mainContent').scrollTop = 0;
 }
@@ -474,21 +347,19 @@ function filterSubcategory(sub, el) {
     var items = document.querySelectorAll('.submenu-item');
     for (var i = 0; i < items.length; i++) {
         items[i].classList.remove('active-sub');
-        if (items[i].dataset.sub === sub) {
-            items[i].classList.add('active-sub');
-        }
+        if (items[i].dataset.sub === sub) items[i].classList.add('active-sub');
     }
     renderLista();
 }
 
 // ============================================================
-// 4. ПРИКАЖИ ЛИСТА
+// ЛИСТА
 // ============================================================
 function renderLista() {
-    var data = getData();
+    var data = cache || [];
     var container = document.getElementById('listaContainer');
-
     var filtered = data;
+
     if (activeCategory === 'matematika') {
         filtered = filtered.filter(function(item) {
             return item.kategorija === 'matematika' && item.subkategorija === activeSub;
@@ -527,33 +398,23 @@ function renderLista() {
 }
 
 // ============================================================
-// 5. УВОЗ HTML (СО КОПЧЕ ЗА ВРАЌАЊЕ)
+// УВОЗ HTML
 // ============================================================
 function uvoziHTML(event) {
     var files = event.target.files;
-    if (!files || files.length === 0) {
-        showToast('⚠️ Нема избрани датотеки');
-        return;
-    }
+    if (!files || files.length === 0) { showToast('⚠️ Нема избрани датотеки'); return; }
 
     var target = getTargetCategory();
     var kategorija = target.kategorija;
     var subkategorija = target.subkategorija;
-    var data = getData();
+    var data = (cache || []).slice();
     var uvezeni = 0;
     var vkupno = files.length;
 
-    var backBtn = `
-    <div style="position:fixed;bottom:80px;left:50%;transform:translateX(-50%);z-index:999;text-align:center;width:100%;pointer-events:none;">
-        <button style="pointer-events:auto;background:linear-gradient(135deg,#16a34a,#15803d);color:white;border:none;padding:12px 30px;border-radius:50px;font-size:16px;font-weight:700;cursor:pointer;box-shadow:0 4px 20px rgba(22,163,74,0.4);border:2px solid rgba(255,255,255,0.2);transition:all 0.3s ease;" 
-                onclick="if(window.opener){window.close();}else{window.history.back();}">
-            🏠 Врати се на платформата
-        </button>
-    </div>
-    <style>
-        body{padding-bottom:80px;}
-        @media(max-width:480px){body{padding-bottom:70px;}}
-    </style>`;
+    var backBtn = '<div style="position:fixed;bottom:80px;left:50%;transform:translateX(-50%);z-index:999;text-align:center;width:100%;pointer-events:none;">' +
+        '<button style="pointer-events:auto;background:linear-gradient(135deg,#16a34a,#15803d);color:white;border:none;padding:12px 30px;border-radius:50px;font-size:16px;font-weight:700;cursor:pointer;box-shadow:0 4px 20px rgba(22,163,74,0.4);border:2px solid rgba(255,255,255,0.2);" ' +
+        'onclick="if(window.opener){window.close();}else{window.history.back();}">🏠 Врати се на платформата</button></div>' +
+        '<style>body{padding-bottom:80px;}@media(max-width:480px){body{padding-bottom:70px;}}</style>';
 
     for (var i = 0; i < vkupno; i++) {
         (function(file) {
@@ -561,20 +422,13 @@ function uvoziHTML(event) {
             reader.onload = function(e) {
                 try {
                     var html = e.target.result;
-                    
-                    if (html.indexOf('</body>') !== -1) {
-                        html = html.replace('</body>', backBtn + '</body>');
-                    } else if (html.indexOf('</html>') !== -1) {
-                        html = html.replace('</html>', backBtn + '</html>');
-                    } else {
-                        html = html + backBtn;
-                    }
+                    if (html.indexOf('</body>') !== -1) html = html.replace('</body>', backBtn + '</body>');
+                    else if (html.indexOf('</html>') !== -1) html = html.replace('</html>', backBtn + '</html>');
+                    else html = html + backBtn;
 
                     var naslov = file.name.replace(/\.html$/i, '') || file.name;
                     var titleMatch = html.match(/<title>(.*?)<\/title>/i);
-                    if (titleMatch && titleMatch[1]) {
-                        naslov = titleMatch[1].trim();
-                    }
+                    if (titleMatch && titleMatch[1]) naslov = titleMatch[1].trim();
 
                     data.push({
                         id: generateId(),
@@ -584,42 +438,35 @@ function uvoziHTML(event) {
                         kategorija: kategorija,
                         subkategorija: subkategorija
                     });
-
                     uvezeni++;
                     if (uvezeni === vkupno) {
-                        setData(data);
-                        renderLista();
-                        var katLabel = getLabel(kategorija, subkategorija) || kategorija;
-                        showToast('✅ Увезени ' + uvezeni + ' HTML датотеки во "' + katLabel + '"');
+                        setData(data, function() {
+                            renderLista();
+                            showToast('✅ Увезени ' + uvezeni + ' HTML датотеки');
+                        });
                     }
                 } catch(err) {
                     showToast('❌ Грешка при увоз на ' + file.name);
                 }
             };
-            reader.onerror = function() {
-                showToast('❌ Грешка при читање на ' + file.name);
-            };
+            reader.onerror = function() { showToast('❌ Грешка при читање на ' + file.name); };
             reader.readAsText(file);
         })(files[i]);
     }
-
     event.target.value = '';
 }
 
 // ============================================================
-// 6. УВОЗ ДОКУМЕНТ
+// УВОЗ ДОКУМЕНТ
 // ============================================================
 function uvoziDokument(event) {
     var files = event.target.files;
-    if (!files || files.length === 0) {
-        showToast('⚠️ Нема избрани датотеки');
-        return;
-    }
+    if (!files || files.length === 0) { showToast('⚠️ Нема избрани датотеки'); return; }
 
     var target = getTargetCategory();
     var kategorija = target.kategorija;
     var subkategorija = target.subkategorija;
-    var data = getData();
+    var data = (cache || []).slice();
     var uvezeni = 0;
     var vkupno = files.length;
 
@@ -630,11 +477,8 @@ function uvoziDokument(event) {
                 try {
                     var content = e.target.result;
                     var base64 = '';
-                    try {
-                        base64 = btoa(content);
-                    } catch(err) {
-                        base64 = btoa(unescape(encodeURIComponent(content)));
-                    }
+                    try { base64 = btoa(content); }
+                    catch(err) { base64 = btoa(unescape(encodeURIComponent(content))); }
 
                     data.push({
                         id: generateId(),
@@ -647,25 +491,21 @@ function uvoziDokument(event) {
                         fileData: base64,
                         fileName: file.name
                     });
-
                     uvezeni++;
                     if (uvezeni === vkupno) {
-                        setData(data);
-                        renderLista();
-                        var katLabel = getLabel(kategorija, subkategorija) || kategorija;
-                        showToast('✅ Увезени ' + uvezeni + ' документи во "' + katLabel + '"');
+                        setData(data, function() {
+                            renderLista();
+                            showToast('✅ Увезени ' + uvezeni + ' документи');
+                        });
                     }
                 } catch(err) {
                     showToast('❌ Грешка при увоз на ' + file.name);
                 }
             };
-            reader.onerror = function() {
-                showToast('❌ Грешка при читање на ' + file.name);
-            };
+            reader.onerror = function() { showToast('❌ Грешка при читање на ' + file.name); };
             reader.readAsBinaryString(file);
         })(files[i]);
     }
-
     event.target.value = '';
 }
 
@@ -673,10 +513,10 @@ document.getElementById('htmlInput').addEventListener('change', uvoziHTML);
 document.getElementById('docInput').addEventListener('change', uvoziDokument);
 
 // ============================================================
-// 7. ПРЕГЛЕД
+// ПРЕГЛЕД
 // ============================================================
 function previewItem(id) {
-    var data = getData();
+    var data = cache || [];
     var item = null;
     for (var i = 0; i < data.length; i++) {
         if (data[i].id === id) { item = data[i]; break; }
@@ -692,12 +532,10 @@ function previewItem(id) {
         try {
             var binaryString = atob(item.fileData);
             var bytes = new Uint8Array(binaryString.length);
-            for (var j = 0; j < binaryString.length; j++) {
-                bytes[j] = binaryString.charCodeAt(j);
-            }
+            for (var j = 0; j < binaryString.length; j++) bytes[j] = binaryString.charCodeAt(j);
             var blob2 = new Blob([bytes], { type: item.fileType || 'application/octet-stream' });
             var url2 = URL.createObjectURL(blob2);
-            if (item.fileType === 'application/pdf' || (item.fileType || '').indexOf('pdf') >= 0) {
+            if ((item.fileType || '').indexOf('pdf') >= 0) {
                 window.open(url2, '_blank');
             } else {
                 var a = document.createElement('a');
@@ -717,36 +555,31 @@ function previewItem(id) {
 }
 
 // ============================================================
-// 8. БРИШЕЊЕ
+// БРИШЕЊЕ
 // ============================================================
 function izbrisiEdna(id) {
     if (!confirm('Да ја избришеме оваа датотека?')) return;
-    var data = getData();
-    var newData = [];
-    for (var i = 0; i < data.length; i++) {
-        if (data[i].id !== id) newData.push(data[i]);
-    }
-    setData(newData);
-    renderLista();
-    showToast('🗑 Избришано');
+    var data = (cache || []).filter(function(item) { return item.id !== id; });
+    setData(data, function() {
+        renderLista();
+        showToast('🗑 Избришано');
+    });
 }
 
 function izbrisiSite() {
     if (!confirm('Избриши ги СИТЕ датотеки?')) return;
-    setData([]);
-    renderLista();
-    showToast('🗑 Сите избришани');
+    setData([], function() {
+        renderLista();
+        showToast('🗑 Сите избришани');
+    });
 }
 
 // ============================================================
-// 9. ИЗВОЗ JSON
+// ИЗВОЗ / УВОЗ JSON
 // ============================================================
 function izveziJSON() {
-    var data = getData();
-    if (data.length === 0) {
-        showToast('⚠️ Нема податоци за извоз');
-        return;
-    }
+    var data = cache || [];
+    if (data.length === 0) { showToast('⚠️ Нема податоци за извоз'); return; }
 
     var totalSize = 0;
     for (var i = 0; i < data.length; i++) {
@@ -754,28 +587,9 @@ function izveziJSON() {
         if (data[i].fileData) totalSize += data[i].fileData.length;
     }
     var sizeMB = (totalSize / (1024 * 1024)).toFixed(1);
-    
-    if (sizeMB > 5) {
-        if (!confirm('⚠️ Датотеката е голема (~' + sizeMB + ' MB). Дали сакате да продолжите?')) {
-            return;
-        }
-    }
+    if (sizeMB > 5 && !confirm('⚠️ Датотеката е голема (~' + sizeMB + ' MB). Дали сакате да продолжите?')) return;
 
-    var exportData = data.map(function(item) {
-        return {
-            id: item.id,
-            naslov: item.naslov,
-            datum: item.datum,
-            kategorija: item.kategorija,
-            subkategorija: item.subkategorija,
-            fileType: item.fileType || null,
-            fileName: item.fileName || null,
-            htmlContent: item.htmlContent || null,
-            fileData: item.fileData || null
-        };
-    });
-
-    var blob = new Blob([JSON.stringify(exportData, null, 2)], { type: 'application/json' });
+    var blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
     var url = URL.createObjectURL(blob);
     var a = document.createElement('a');
     a.href = url;
@@ -787,46 +601,24 @@ function izveziJSON() {
     showToast('📤 Извезени ' + data.length + ' датотеки (' + sizeMB + ' MB)');
 }
 
-// ============================================================
-// 10. УВОЗ JSON
-// ============================================================
 function uvoziJSON(event) {
     var file = event.target.files[0];
-    if (!file) {
-        showToast('⚠️ Нема избрана датотека');
-        return;
-    }
-
-    if (file.size > 50 * 1024 * 1024) {
-        showToast('⚠️ Датотеката е преголема (>50MB)');
-        return;
-    }
+    if (!file) { showToast('⚠️ Нема избрана датотека'); return; }
+    if (file.size > 50 * 1024 * 1024) { showToast('⚠️ Датотеката е преголема (>50MB)'); return; }
 
     var reader = new FileReader();
     reader.onload = function(e) {
         try {
             var importedData = JSON.parse(e.target.result);
-            if (!Array.isArray(importedData)) {
-                showToast('❌ Невалиден JSON формат');
-                return;
-            }
-
-            if (importedData.length === 0) {
-                showToast('⚠️ Датотеката е празна');
-                return;
-            }
-
-            if (!confirm('Дали сакате да ги ЗАМЕНИТЕ постоечките податоци со увезените?')) {
-                return;
-            }
+            if (!Array.isArray(importedData)) { showToast('❌ Невалиден JSON формат'); return; }
+            if (importedData.length === 0) { showToast('⚠️ Датотеката е празна'); return; }
+            if (!confirm('Дали сакате да ги ЗАМЕНИТЕ постоечките податоци со увезените?')) return;
 
             var data = [];
             var uvezeni = 0;
-
             for (var i = 0; i < importedData.length; i++) {
                 var item = importedData[i];
                 if (!item.naslov) continue;
-                
                 data.push({
                     id: item.id || generateId(),
                     naslov: item.naslov || 'Неименуван',
@@ -840,60 +632,51 @@ function uvoziJSON(event) {
                 });
                 uvezeni++;
             }
-
-            if (uvezeni === 0) {
-                showToast('⚠️ Нема валидни податоци за увоз');
-                return;
-            }
-
-            setData(data);
-            renderLista();
-            showToast('✅ Увезени ' + uvezeni + ' документи од JSON');
+            if (uvezeni === 0) { showToast('⚠️ Нема валидни податоци'); return; }
+            setData(data, function() {
+                renderLista();
+                showToast('✅ Увезени ' + uvezeni + ' документи од JSON');
+            });
         } catch(err) {
             showToast('❌ Грешка при читање на JSON: ' + err.message);
         }
     };
-    reader.onerror = function() {
-        showToast('❌ Грешка при читање на датотеката');
-    };
+    reader.onerror = function() { showToast('❌ Грешка при читање на датотеката'); };
     reader.readAsText(file);
-    
     event.target.value = '';
 }
 
 // ============================================================
-// 11. СТАРТ + INTRO АНИМАЦИЈА
+// СТАРТ + INTRO
 // ============================================================
 document.addEventListener('DOMContentLoaded', function() {
-    // Intro анимација (исто како првиот код)
-    setTimeout(function() {
-        document.getElementById('p1').classList.remove('on');
-        document.getElementById('p2').classList.add('on');
+    loadData(function() {
+        // Intro анимација
         setTimeout(function() {
-            document.getElementById('intro').style.display = 'none';
-            document.getElementById('shell').classList.add('show');
+            document.getElementById('p1').classList.remove('on');
+            document.getElementById('p2').classList.add('on');
+            setTimeout(function() {
+                document.getElementById('intro').style.display = 'none';
+                document.getElementById('shell').classList.add('show');
 
-            // Иницијализација на апликацијата
-            var btns = document.querySelectorAll('.tab-btn');
-            for (var i = 0; i < btns.length; i++) {
-                btns[i].classList.remove('active');
-            }
-            document.querySelector('.tab-btn[data-category="matematika"]').classList.add('active');
-            activeCategory = 'matematika';
-            activeSub = 'podgotovka';
-            
-            var items = document.querySelectorAll('.submenu-item');
-            for (var j = 0; j < items.length; j++) {
-                items[j].classList.remove('active-sub');
-                if (items[j].dataset.sub === 'podgotovka') {
-                    items[j].classList.add('active-sub');
+                // Иницијализација
+                var btns = document.querySelectorAll('.tab-btn');
+                for (var i = 0; i < btns.length; i++) btns[i].classList.remove('active');
+                document.querySelector('.tab-btn[data-category="matematika"]').classList.add('active');
+                activeCategory = 'matematika';
+                activeSub = 'podgotovka';
+
+                var items = document.querySelectorAll('.submenu-item');
+                for (var j = 0; j < items.length; j++) {
+                    items[j].classList.remove('active-sub');
+                    if (items[j].dataset.sub === 'podgotovka') items[j].classList.add('active-sub');
                 }
-            }
-            
-            renderLista();
-            showToast('🚀 Платформата е активна!');
+
+                renderLista();
+                showToast('🚀 Платформата е активна!');
+            }, 2200);
         }, 2200);
-    }, 2200);
+    });
 });
 </script>
 </body>
